@@ -1,0 +1,2583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Repurchase Calling Funnel | Adda247 Sales Training</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #16161f;
+    --card: #1a1a26;
+    --card2: #1e1e2d;
+    --red: #e8192c;
+    --red2: #ff2d41;
+    --red-glow: rgba(232,25,44,0.18);
+    --gold: #f5c518;
+    --gold2: #ffd700;
+    --white: #f0f0f8;
+    --grey: #a0a0b8;
+    --border: rgba(255,255,255,0.07);
+    --border-red: rgba(232,25,44,0.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--white);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ── TOP PROGRESS NAV ── */
+  #progress-bar {
+    position: fixed; top: 0; left: 0; height: 3px;
+    background: linear-gradient(90deg, var(--red), var(--gold));
+    z-index: 9999; transition: width 0.2s ease;
+    box-shadow: 0 0 10px var(--red);
+    width: 0%;
+  }
+
+  /* ── STICKY NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 8px;
+  }
+
+  .nav-brand {
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .logo-adda {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px; font-weight: 800;
+    color: var(--red); font-style: italic;
+  }
+
+  .logo-box {
+    background: var(--red);
+    color: #fff;
+    font-weight: 700; font-size: 14px;
+    padding: 3px 7px; border-radius: 4px;
+  }
+
+  .nav-links {
+    display: flex; gap: 4px; flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    color: var(--grey); text-decoration: none;
+    font-size: 11px; font-weight: 500;
+    padding: 5px 10px; border-radius: 20px;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+
+  .nav-links a:hover, .nav-links a.active {
+    color: var(--white);
+    background: var(--red-glow);
+    border-color: var(--border-red);
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    min-height: 100vh; padding: 120px 40px 80px;
+    max-width: 1200px; margin: 0 auto;
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  section.visible { opacity: 1; transform: translateY(0); }
+
+  .section-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--red);
+    margin-bottom: 12px;
+  }
+
+  h1, h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    line-height: 1.15;
+  }
+
+  h2 {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700; color: var(--white);
+    margin-bottom: 16px;
+  }
+
+  .section-desc {
+    font-size: 16px; color: var(--grey);
+    max-width: 640px; margin-bottom: 48px;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh; display: flex;
+    flex-direction: column; justify-content: center;
+    align-items: center; text-align: center;
+    padding: 100px 40px 60px;
+    position: relative; overflow: hidden;
+    opacity: 1; transform: none;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 50% at 50% 40%, rgba(232,25,44,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--red-glow); border: 1px solid var(--border-red);
+    padding: 6px 16px; border-radius: 100px;
+    font-size: 12px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--red);
+    margin-bottom: 28px;
+  }
+
+  .hero-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(32px, 6vw, 72px);
+    font-weight: 800; line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .hero-title .accent { color: var(--red); }
+  .hero-title .gold { color: var(--gold); }
+
+  .hero-subtitle {
+    font-size: clamp(14px, 2vw, 18px);
+    color: var(--grey); max-width: 600px;
+    margin: 0 auto 40px;
+  }
+
+  /* FUNNEL VISUAL */
+  .hero-funnel {
+    width: 100%; max-width: 780px;
+    margin: 0 auto 40px;
+    position: relative;
+  }
+
+  .funnel-top {
+    background: linear-gradient(135deg, var(--card), var(--card2));
+    border: 1px solid var(--border-red);
+    border-radius: 14px; padding: 18px 32px;
+    text-align: center; font-weight: 700; font-size: 18px;
+    color: var(--white);
+    box-shadow: 0 0 30px var(--red-glow);
+    position: relative; z-index: 2;
+    animation: pulse-red 3s infinite;
+  }
+
+  @keyframes pulse-red {
+    0%, 100% { box-shadow: 0 0 20px var(--red-glow); }
+    50% { box-shadow: 0 0 40px rgba(232,25,44,0.35); }
+  }
+
+  .funnel-arrow {
+    display: flex; justify-content: center;
+    padding: 10px 0;
+    color: var(--red); font-size: 24px;
+    animation: bounce-down 1.5s infinite;
+  }
+
+  @keyframes bounce-down {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+  }
+
+  .funnel-branches {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 20px; margin-top: 4px;
+  }
+
+  .funnel-branch {
+    border-radius: 14px; padding: 24px 20px;
+    text-align: center; cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: slide-in 0.8s ease both;
+  }
+
+  .funnel-branch:nth-child(1) {
+    background: linear-gradient(135deg, rgba(232,25,44,0.12), rgba(232,25,44,0.05));
+    border: 1px solid var(--border-red);
+    animation-delay: 0.3s;
+  }
+
+  .funnel-branch:nth-child(2) {
+    background: linear-gradient(135deg, rgba(245,197,24,0.1), rgba(245,197,24,0.04));
+    border: 1px solid rgba(245,197,24,0.3);
+    animation-delay: 0.5s;
+  }
+
+  .funnel-branch:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+
+  @keyframes slide-in {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .branch-icon { font-size: 32px; margin-bottom: 10px; }
+  .branch-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  .branch-desc { font-size: 13px; color: var(--grey); }
+
+  .btn-start {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--red); color: #fff;
+    font-weight: 700; font-size: 16px;
+    padding: 16px 36px; border-radius: 100px;
+    border: none; cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(232,25,44,0.4);
+  }
+
+  .btn-start:hover {
+    background: var(--red2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(232,25,44,0.5);
+  }
+
+  /* ── OBJECTIVE CARDS ── */
+  .obj-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px; margin-top: 40px;
+  }
+
+  .obj-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px; padding: 24px 20px;
+    transition: all 0.3s;
+    position: relative; overflow: hidden;
+    opacity: 0; transform: translateY(20px);
+  }
+
+  .obj-card.animated { opacity: 1; transform: translateY(0); }
+
+  .obj-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--red), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+
+  .obj-card:hover { border-color: var(--border-red); transform: translateY(-3px); }
+  .obj-card:hover::before { opacity: 1; }
+
+  .obj-num {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    color: var(--red); margin-bottom: 10px;
+  }
+
+  .obj-icon { font-size: 28px; margin-bottom: 12px; }
+  .obj-title { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+  .obj-text { font-size: 13px; color: var(--grey); line-height: 1.5; }
+
+  /* ── PURCHASE CARDS (section 3) ── */
+  .purchase-grid {
+    display: flex; flex-wrap: wrap; gap: 14px; margin: 32px 0;
+  }
+
+  .purchase-card {
+    background: var(--card2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 22px;
+    display: flex; align-items: center; gap: 12px;
+    opacity: 0; transform: translateX(-20px);
+    transition: all 0.4s ease;
+    min-width: 190px;
+  }
+
+  .purchase-card.animated { opacity: 1; transform: translateX(0); }
+  .purchase-card:hover { border-color: var(--border-red); }
+
+  .purchase-card .icon { font-size: 26px; }
+  .purchase-card .label { font-size: 14px; font-weight: 600; }
+
+  /* ── TRAINER NOTE ── */
+  .trainer-note {
+    background: linear-gradient(135deg, rgba(245,197,24,0.08), rgba(245,197,24,0.03));
+    border: 1px solid rgba(245,197,24,0.3);
+    border-left: 4px solid var(--gold);
+    border-radius: 12px; padding: 20px 24px;
+    margin: 28px 0;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+
+  .trainer-note .tn-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .trainer-note .tn-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 6px;
+  }
+
+  .trainer-note p { font-size: 14px; color: var(--white); line-height: 1.6; font-style: italic; }
+
+  /* ── BIG FUNNEL ── */
+  .big-funnel {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 0; margin: 40px 0;
+  }
+
+  .funnel-stage {
+    width: 100%; max-width: 560px;
+    padding: 16px 24px; text-align: center;
+    font-weight: 700; font-size: 16px;
+    border-radius: 10px;
+    clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+    margin-bottom: 2px;
+    transition: all 0.3s;
+  }
+
+  .funnel-stage:hover { filter: brightness(1.15); }
+
+  .fs-1 { background: var(--card2); border: 1px solid var(--border); width: 100%; }
+  .fs-2 { background: rgba(232,25,44,0.2); border: 1px solid var(--border-red); color: #ff6677; width: 80%; }
+  .fs-3 { background: rgba(245,197,24,0.15); border: 1px solid rgba(245,197,24,0.3); color: var(--gold); width: 60%; }
+
+  .funnel-join {
+    display: flex; justify-content: center;
+    color: var(--grey); font-size: 20px; padding: 4px 0;
+  }
+
+  .funnel-cards {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 20px; margin-top: 40px;
+  }
+
+  .funnel-card {
+    border-radius: 16px; padding: 28px 24px;
+    cursor: pointer; transition: all 0.3s;
+    text-align: center;
+  }
+
+  .funnel-card.upgrade {
+    background: linear-gradient(135deg, rgba(232,25,44,0.15), rgba(232,25,44,0.05));
+    border: 2px solid var(--border-red);
+  }
+
+  .funnel-card.expiry {
+    background: linear-gradient(135deg, rgba(245,197,24,0.12), rgba(245,197,24,0.04));
+    border: 2px solid rgba(245,197,24,0.3);
+  }
+
+  .funnel-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(0,0,0,0.4); }
+
+  .fc-icon { font-size: 40px; margin-bottom: 14px; }
+  .fc-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .fc-desc { font-size: 13px; color: var(--grey); line-height: 1.55; }
+
+  /* ── PART HEADER ── */
+  .part-header {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: var(--red-glow); border: 1px solid var(--border-red);
+    padding: 10px 20px; border-radius: 100px;
+    margin-bottom: 32px;
+  }
+
+  .part-num {
+    background: var(--red); color: #fff;
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+  }
+
+  .part-label { font-size: 13px; font-weight: 600; color: var(--red); letter-spacing: 1px; }
+
+  /* ── TRANSFORM VISUAL ── */
+  .transform-visual {
+    display: flex; align-items: center; justify-content: center;
+    gap: 16px; margin: 32px 0; flex-wrap: wrap;
+  }
+
+  .tv-box {
+    background: var(--card2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px 24px;
+    text-align: center; font-size: 14px; font-weight: 600;
+    min-width: 140px;
+  }
+
+  .tv-box.highlight {
+    background: linear-gradient(135deg, rgba(232,25,44,0.2), rgba(232,25,44,0.08));
+    border-color: var(--border-red);
+    color: var(--white);
+    box-shadow: 0 0 20px var(--red-glow);
+  }
+
+  .tv-arrow { font-size: 24px; color: var(--red); }
+
+  /* ── MAHAPACK BENEFIT CARDS ── */
+  .mahapack-center {
+    text-align: center; margin: 32px 0 24px;
+  }
+
+  .mahapack-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--red), #a0000f);
+    color: #fff; font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px; font-weight: 800;
+    padding: 14px 32px; border-radius: 100px;
+    box-shadow: 0 6px 30px rgba(232,25,44,0.4);
+    margin-bottom: 12px;
+  }
+
+  .mahapack-tagline {
+    font-size: 14px; color: var(--gold); font-style: italic;
+    font-weight: 500; margin-bottom: 32px;
+  }
+
+  .benefit-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 14px;
+  }
+
+  .benefit-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px 16px; text-align: center;
+    transition: all 0.3s;
+  }
+
+  .benefit-card:hover {
+    border-color: var(--border-red);
+    background: var(--card2);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px var(--red-glow);
+  }
+
+  .benefit-card .bi { font-size: 28px; margin-bottom: 10px; }
+  .benefit-card .bt { font-size: 13px; font-weight: 600; }
+
+  /* ── COMPARISON TABLE ── */
+  .comp-table {
+    width: 100%; border-collapse: collapse; margin: 32px 0;
+  }
+
+  .comp-table th {
+    background: var(--card2); padding: 14px 18px;
+    text-align: left; font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--grey); border-bottom: 2px solid var(--border-red);
+  }
+
+  .comp-table td {
+    padding: 14px 18px; font-size: 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle; transition: all 0.3s;
+  }
+
+  .comp-table tr:hover td {
+    background: var(--red-glow);
+  }
+
+  .comp-table tr:hover td.limitation { color: #ff9aa2; }
+  .comp-table tr:hover td.pitch { color: var(--gold); font-weight: 600; }
+
+  .comp-table .current { color: var(--white); font-weight: 500; }
+  .comp-table .limitation { color: var(--grey); }
+  .comp-table .pitch { color: var(--grey); font-style: italic; }
+
+  .tag-red {
+    display: inline-block; background: var(--red-glow);
+    border: 1px solid var(--border-red);
+    color: var(--red); font-size: 11px; font-weight: 600;
+    padding: 2px 8px; border-radius: 4px; margin-bottom: 4px;
+  }
+
+  /* ── CALLING FLOW ── */
+  .call-flow {
+    display: flex; flex-direction: column; gap: 0;
+    margin: 32px 0;
+    position: relative;
+  }
+
+  .call-flow::before {
+    content: '';
+    position: absolute; left: 22px; top: 0; bottom: 0; width: 2px;
+    background: linear-gradient(to bottom, var(--red), var(--gold), transparent);
+  }
+
+  .flow-step {
+    display: flex; align-items: flex-start; gap: 20px;
+    padding: 16px 20px 16px 0; margin-left: 0;
+    opacity: 0; transform: translateX(-15px);
+    transition: all 0.4s ease;
+  }
+
+  .flow-step.animated { opacity: 1; transform: translateX(0); }
+
+  .flow-num {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--card2); border: 2px solid var(--border-red);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 700; color: var(--red);
+    flex-shrink: 0; z-index: 2; position: relative;
+    background: var(--bg2);
+  }
+
+  .flow-content { padding-top: 4px; }
+  .flow-title { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
+  .flow-desc { font-size: 13px; color: var(--grey); }
+
+  /* ── PITCH CARD ── */
+  .pitch-card {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px 28px;
+    margin: 28px 0; position: relative;
+    border-left: 4px solid var(--red);
+  }
+
+  .pitch-label {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .pitch-label .pl-icon { font-size: 22px; }
+  .pitch-label .pl-text {
+    font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--red);
+  }
+
+  .pitch-body {
+    font-size: 15px; color: var(--white); line-height: 1.75;
+    font-style: italic;
+  }
+
+  .pitch-body strong { color: var(--gold); font-style: normal; }
+
+  /* ── STUDENT TYPE CARDS ── */
+  .student-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 20px; margin: 32px 0;
+  }
+
+  .student-card {
+    border-radius: 16px; padding: 28px 24px;
+    transition: all 0.3s;
+  }
+
+  .student-card.active {
+    background: linear-gradient(135deg, rgba(34,197,94,0.1), rgba(34,197,94,0.04));
+    border: 1px solid rgba(34,197,94,0.3);
+  }
+
+  .student-card.inactive {
+    background: linear-gradient(135deg, rgba(232,25,44,0.1), rgba(232,25,44,0.04));
+    border: 1px solid var(--border-red);
+  }
+
+  .student-card:hover { transform: translateY(-4px); }
+
+  .sc-status {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; margin-bottom: 14px;
+    padding: 4px 12px; border-radius: 100px;
+  }
+
+  .sc-status.green { color: #4ade80; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); }
+  .sc-status.red { color: var(--red); background: var(--red-glow); border: 1px solid var(--border-red); }
+
+  .sc-dot { width: 6px; height: 6px; border-radius: 50%; }
+  .sc-dot.green { background: #4ade80; animation: blink 1s infinite; }
+  .sc-dot.red { background: var(--red); }
+
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  .sc-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+  .sc-desc { font-size: 13px; color: var(--grey); line-height: 1.55; margin-bottom: 16px; }
+
+  .sc-indicators { display: flex; flex-direction: column; gap: 6px; }
+  .sc-ind {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; color: var(--grey);
+  }
+  .sc-ind .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--grey); flex-shrink: 0; }
+  .sc-ind.yes { color: #4ade80; }
+  .sc-ind.yes .dot { background: #4ade80; }
+  .sc-ind.no { color: #ff6677; text-decoration: line-through; }
+  .sc-ind.no .dot { background: var(--red); }
+
+  /* ── COMPARISON TABLE (S17) ── */
+  .toggle-comp { margin: 32px 0; }
+
+  .toggle-btns {
+    display: flex; gap: 8px; margin-bottom: 24px;
+  }
+
+  .toggle-btn {
+    padding: 10px 24px; border-radius: 100px;
+    border: 1px solid var(--border); background: var(--card);
+    color: var(--grey); font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 0.3s;
+  }
+
+  .toggle-btn.active-upgrade {
+    background: var(--red-glow); border-color: var(--border-red); color: var(--red);
+  }
+  .toggle-btn.active-expiry {
+    background: rgba(245,197,24,0.1); border-color: rgba(245,197,24,0.3); color: var(--gold);
+  }
+
+  .adv-table { width: 100%; border-collapse: collapse; }
+  .adv-table th {
+    padding: 14px 18px; text-align: left;
+    font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--grey);
+  }
+
+  .adv-table th.col-upgrade { color: var(--red); }
+  .adv-table th.col-expiry { color: var(--gold); }
+
+  .adv-table td {
+    padding: 14px 18px; font-size: 14px;
+    border-top: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+
+  .adv-table td.col-param { color: var(--grey); font-weight: 500; font-size: 13px; }
+  .adv-table td.col-upgrade { color: var(--white); background: rgba(232,25,44,0.03); }
+  .adv-table td.col-expiry { color: var(--white); background: rgba(245,197,24,0.03); }
+
+  .adv-table.highlight-upgrade td.col-upgrade {
+    background: var(--red-glow); border-left: 2px solid var(--red);
+    font-weight: 600;
+  }
+
+  .adv-table.highlight-expiry td.col-expiry {
+    background: rgba(245,197,24,0.08); border-left: 2px solid var(--gold);
+    font-weight: 600;
+  }
+
+  /* ── MINDSET CARDS ── */
+  .mindset-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px; margin: 24px 0;
+  }
+
+  .mindset-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 16px;
+    display: flex; align-items: flex-start; gap: 12px;
+    transition: all 0.3s;
+  }
+
+  .mindset-card:hover { border-color: rgba(34,197,94,0.3); background: rgba(34,197,94,0.04); }
+  .mindset-card .mc-check { color: #4ade80; font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .mindset-card .mc-text { font-size: 13px; color: var(--white); line-height: 1.5; }
+
+  .final-stmt {
+    background: linear-gradient(135deg, rgba(232,25,44,0.12), transparent);
+    border: 1px solid var(--border-red);
+    border-radius: 14px; padding: 24px 28px;
+    font-size: 18px; font-weight: 700;
+    color: var(--white); text-align: center;
+    margin: 28px 0;
+    line-height: 1.5;
+  }
+
+  .final-stmt span { color: var(--red); }
+
+  /* ── ACTIVITY CARDS ── */
+  .activity-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px; margin: 32px 0;
+  }
+
+  .activity-card {
+    background: var(--card2); border: 1px solid var(--border);
+    border-radius: 16px; cursor: pointer;
+    perspective: 600px; height: 180px;
+    transition: all 0.3s;
+  }
+
+  .activity-card:hover { border-color: var(--border-red); transform: translateY(-3px); }
+
+  .ac-inner {
+    position: relative; width: 100%; height: 100%;
+    transform-style: preserve-3d; transition: transform 0.55s ease;
+  }
+
+  .activity-card.flipped .ac-inner { transform: rotateY(180deg); }
+
+  .ac-front, .ac-back {
+    position: absolute; inset: 0;
+    backface-visibility: hidden;
+    border-radius: 15px; padding: 20px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+  }
+
+  .ac-back {
+    background: linear-gradient(135deg, rgba(232,25,44,0.15), rgba(232,25,44,0.08));
+    border: 1px solid var(--border-red);
+    transform: rotateY(180deg);
+  }
+
+  .ac-icon { font-size: 30px; margin-bottom: 10px; }
+  .ac-title { font-size: 14px; font-weight: 600; color: var(--white); }
+  .ac-num { font-size: 11px; color: var(--grey); margin-bottom: 4px; font-weight: 600; letter-spacing: 1px; }
+  .ac-back-text { font-size: 12px; color: var(--gold); font-weight: 600; line-height: 1.5; }
+
+  /* ── TIMER BADGE ── */
+  .timer-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--card2); border: 1px solid rgba(245,197,24,0.3);
+    border-radius: 100px; padding: 10px 20px;
+    margin-top: 24px;
+  }
+
+  .timer-icon { font-size: 20px; animation: spin 4s linear infinite; }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  .timer-text { font-size: 14px; font-weight: 600; color: var(--gold); }
+
+  /* ── NEXT SECTION BTN ── */
+  .next-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 48px; padding: 13px 28px;
+    background: var(--card2); border: 1px solid var(--border);
+    border-radius: 100px; color: var(--grey);
+    font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: all 0.3s; text-decoration: none;
+  }
+
+  .next-btn:hover {
+    border-color: var(--border-red); color: var(--white);
+    background: var(--red-glow);
+  }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    width: 60px; height: 3px;
+    background: linear-gradient(90deg, var(--red), transparent);
+    margin-bottom: 32px; border-radius: 2px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    section { padding: 100px 20px 60px; }
+    .funnel-branches, .funnel-cards, .student-grid { grid-template-columns: 1fr; }
+    nav { padding: 10px 16px; }
+    .nav-links { display: none; }
+    .comp-table { font-size: 12px; }
+    .comp-table th, .comp-table td { padding: 10px 12px; }
+    .adv-table { font-size: 12px; }
+  }
+
+  /* ── NEON FOCUS / HOVER ANIMATION ── */
+  .pitch-card, .trainer-note, .obj-card, .benefit-card, .mindset-card,
+  .funnel-card, .funnel-branch, .student-card, .activity-card,
+  .tv-box, .purchase-card, .flow-step, .comp-table tr, .adv-table tr {
+    position: relative;
+  }
+
+  /* Neon glow on hover for all interactive cards */
+  .pitch-card:hover {
+    border-color: #e8192c !important;
+    box-shadow: 0 0 18px rgba(232,25,44,0.55), 0 0 40px rgba(232,25,44,0.2), inset 0 0 20px rgba(232,25,44,0.04);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  .obj-card:hover {
+    box-shadow: 0 0 20px rgba(232,25,44,0.45), 0 0 50px rgba(232,25,44,0.12);
+    border-color: var(--red) !important;
+  }
+
+  .benefit-card:hover {
+    box-shadow: 0 0 16px rgba(232,25,44,0.4), 0 0 35px rgba(232,25,44,0.1);
+  }
+
+  .funnel-branch:hover, .funnel-card:hover {
+    box-shadow: 0 0 24px rgba(232,25,44,0.45), 0 0 60px rgba(232,25,44,0.15) !important;
+  }
+
+  .funnel-branch:nth-child(2):hover {
+    box-shadow: 0 0 24px rgba(245,197,24,0.4), 0 0 60px rgba(245,197,24,0.12) !important;
+  }
+
+  .funnel-card.expiry:hover {
+    box-shadow: 0 0 24px rgba(245,197,24,0.35), 0 0 60px rgba(245,197,24,0.1) !important;
+  }
+
+  .purchase-card:hover {
+    box-shadow: 0 0 16px rgba(232,25,44,0.4);
+    border-color: var(--red) !important;
+  }
+
+  .mindset-card:hover {
+    box-shadow: 0 0 16px rgba(74,222,128,0.3);
+  }
+
+  .student-card.active:hover {
+    box-shadow: 0 0 24px rgba(74,222,128,0.35), 0 0 50px rgba(74,222,128,0.1);
+  }
+
+  .student-card.inactive:hover {
+    box-shadow: 0 0 24px rgba(232,25,44,0.4), 0 0 50px rgba(232,25,44,0.12);
+  }
+
+  .activity-card:hover {
+    box-shadow: 0 0 20px rgba(232,25,44,0.45), 0 0 50px rgba(232,25,44,0.15) !important;
+  }
+
+  /* Neon glow on TABLE ROW HOVER */
+  .comp-table tr:hover td {
+    background: rgba(232,25,44,0.1) !important;
+    box-shadow: inset 0 0 20px rgba(232,25,44,0.08);
+  }
+
+  .comp-table tr:hover {
+    box-shadow: 0 0 16px rgba(232,25,44,0.2);
+  }
+
+  /* Neon for flow steps */
+  .flow-step:hover .flow-num {
+    box-shadow: 0 0 14px rgba(232,25,44,0.6), 0 0 30px rgba(232,25,44,0.2);
+    border-color: var(--red) !important;
+    color: #fff !important;
+    background: var(--red) !important;
+    transition: all 0.3s ease;
+  }
+
+  /* Neon for trainer note on hover */
+  .trainer-note:hover {
+    box-shadow: 0 0 18px rgba(245,197,24,0.25), 0 0 40px rgba(245,197,24,0.08);
+    border-left-color: var(--gold2) !important;
+    transition: all 0.3s ease;
+  }
+
+  /* Neon for toggle buttons */
+  .toggle-btn:hover {
+    box-shadow: 0 0 14px rgba(232,25,44,0.4);
+  }
+
+  /* Nav links neon hover */
+  .nav-links a:hover {
+    box-shadow: 0 0 12px rgba(232,25,44,0.35);
+    text-shadow: 0 0 8px rgba(232,25,44,0.6);
+  }
+
+  /* btn-start neon */
+  .btn-start:hover {
+    box-shadow: 0 0 20px rgba(232,25,44,0.7), 0 0 50px rgba(232,25,44,0.3) !important;
+    text-shadow: 0 0 8px rgba(255,255,255,0.5);
+  }
+
+  /* next-btn neon */
+  .next-btn:hover {
+    box-shadow: 0 0 14px rgba(232,25,44,0.35);
+  }
+
+  /* Mahapack badge neon pulse */
+  .mahapack-badge {
+    animation: mahapack-neon 3s ease-in-out infinite;
+  }
+
+  @keyframes mahapack-neon {
+    0%, 100% { box-shadow: 0 6px 30px rgba(232,25,44,0.4); }
+    50% { box-shadow: 0 6px 30px rgba(232,25,44,0.4), 0 0 60px rgba(232,25,44,0.3), 0 0 100px rgba(232,25,44,0.1); }
+  }
+
+  /* Funnel top neon */
+  .funnel-top:hover {
+    box-shadow: 0 0 30px rgba(232,25,44,0.5), 0 0 80px rgba(232,25,44,0.2) !important;
+    cursor: default;
+  }
+
+  /* Activity card flip neon on back */
+  .activity-card.flipped .ac-back {
+    box-shadow: inset 0 0 30px rgba(232,25,44,0.1);
+  }
+
+  /* Transform visual box hover */
+  .tv-box:hover {
+    border-color: var(--red) !important;
+    box-shadow: 0 0 16px rgba(232,25,44,0.4) !important;
+    transform: translateY(-3px);
+    transition: all 0.3s;
+  }
+
+  .tv-box.highlight:hover {
+    box-shadow: 0 0 25px rgba(232,25,44,0.55), 0 0 60px rgba(232,25,44,0.2) !important;
+  }
+
+
+  /* ── NEED GENERATION / OBJECTION TABS ── */
+  .ng-tabs {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .ng-tab {
+    padding: 9px 18px; border-radius: 100px;
+    border: 1px solid var(--border); background: var(--card);
+    color: var(--grey); font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 0.3s;
+    white-space: nowrap;
+  }
+
+  .ng-tab:hover {
+    border-color: var(--border-red); color: var(--white);
+    box-shadow: 0 0 12px rgba(232,25,44,0.3);
+  }
+
+  .ng-tab.active {
+    background: var(--red-glow); border-color: var(--border-red);
+    color: var(--red); box-shadow: 0 0 14px rgba(232,25,44,0.25);
+  }
+
+  .ng-panel { display: none; }
+  .ng-panel.active { display: block; animation: fadeIn 0.35s ease; }
+  .obj-panel { display: none; }
+  .obj-panel.active { display: block; animation: fadeIn 0.35s ease; }
+
+  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+  .ng-angle-box {
+    background: linear-gradient(135deg, rgba(232,25,44,0.08), rgba(232,25,44,0.03));
+    border: 1px solid var(--border-red); border-radius: 12px;
+    padding: 16px 20px; margin-bottom: 20px;
+  }
+
+  .na-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--red); margin-bottom: 6px;
+  }
+
+  .na-text { font-size: 15px; font-weight: 600; color: var(--white); font-style: italic; }
+
+  .ng-lines-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 12px; margin-bottom: 20px;
+  }
+
+  .ng-line {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 16px;
+    font-size: 13px; color: var(--white); line-height: 1.6;
+    display: flex; gap: 12px; align-items: flex-start;
+    transition: all 0.3s;
+  }
+
+  .ng-line:hover {
+    border-color: var(--border-red);
+    background: var(--card2);
+    box-shadow: 0 0 14px rgba(232,25,44,0.25);
+    transform: translateY(-2px);
+  }
+
+  .ng-line.q-line:hover {
+    border-color: rgba(245,197,24,0.4);
+    box-shadow: 0 0 14px rgba(245,197,24,0.2);
+  }
+
+  .nl-num {
+    min-width: 26px; height: 26px; border-radius: 50%;
+    background: var(--red-glow); border: 1px solid var(--border-red);
+    color: var(--red); font-size: 10px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+
+  .nl-num.q {
+    background: rgba(245,197,24,0.1); border-color: rgba(245,197,24,0.3);
+    color: var(--gold);
+  }
+
+  .ng-closing {
+    background: linear-gradient(135deg, rgba(34,197,94,0.08), rgba(34,197,94,0.03));
+    border: 1px solid rgba(34,197,94,0.3); border-radius: 12px;
+    padding: 16px 20px; font-size: 14px; color: var(--white);
+    font-style: italic; line-height: 1.6;
+  }
+
+  .nc-label {
+    display: block; font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: #4ade80; margin-bottom: 8px;
+  }
+
+  /* ── FORMULA BOX ── */
+  .formula-box {
+    background: var(--card2); border: 1px solid var(--border-red);
+    border-radius: 14px; padding: 20px 24px; margin-bottom: 24px;
+  }
+
+  .fb-title {
+    font-size: 13px; font-weight: 700; color: var(--red);
+    margin-bottom: 16px; letter-spacing: 0.5px;
+  }
+
+  .formula-steps { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  .fs-pill {
+    display: flex; flex-direction: column;
+    padding: 10px 16px; border-radius: 10px;
+    font-size: 13px; font-weight: 700; flex: 1; min-width: 160px;
+    border: 1px solid;
+  }
+
+  .fs-pill span { font-size: 11px; font-weight: 400; margin-top: 4px; font-style: italic; }
+  .fs-pill.red { color: var(--red); background: var(--red-glow); border-color: var(--border-red); }
+  .fs-pill.gold { color: var(--gold); background: rgba(245,197,24,0.08); border-color: rgba(245,197,24,0.3); }
+  .fs-pill.blue { color: #60a5fa; background: rgba(96,165,250,0.08); border-color: rgba(96,165,250,0.3); }
+  .fs-pill.green { color: #4ade80; background: rgba(34,197,94,0.08); border-color: rgba(34,197,94,0.3); }
+
+  /* ── OBJECTION QA CARDS ── */
+  .obj-qa-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 16px;
+  }
+
+  .oqa-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px 20px;
+    transition: all 0.3s;
+    border-top: 3px solid var(--border-red);
+  }
+
+  .oqa-card:hover {
+    border-color: var(--red);
+    box-shadow: 0 0 20px rgba(232,25,44,0.3), 0 0 50px rgba(232,25,44,0.08);
+    transform: translateY(-3px);
+  }
+
+  .oqa-q {
+    font-size: 14px; font-weight: 600; color: var(--gold);
+    margin-bottom: 14px; line-height: 1.5;
+    font-style: italic;
+  }
+
+  .oqa-label {
+    display: inline-block; font-size: 9px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--grey); margin-bottom: 6px;
+    background: var(--card2); border: 1px solid var(--border);
+    padding: 2px 8px; border-radius: 4px;
+  }
+
+  .oqa-r {
+    font-size: 13px; color: var(--white); line-height: 1.65;
+    margin-bottom: 14px; display: flex; flex-direction: column; gap: 6px;
+  }
+
+  .oqa-rf {
+    font-size: 12px; color: var(--grey); font-style: italic;
+    padding: 10px 14px;
+    background: var(--card2); border-radius: 8px;
+    border-left: 3px solid var(--red);
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+
+  .rf-tag {
+    font-size: 10px; font-weight: 700; color: var(--red);
+    letter-spacing: 1px; white-space: nowrap; margin-top: 1px;
+  }
+
+  /* ── EXPIRY OBJ GRID ── */
+  .expiry-obj-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 16px; margin-top: 24px;
+  }
+
+  .exp-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px;
+    border-top: 3px solid rgba(245,197,24,0.5);
+    transition: all 0.3s;
+  }
+
+  .exp-card:hover {
+    border-color: rgba(245,197,24,0.5);
+    box-shadow: 0 0 20px rgba(245,197,24,0.2), 0 0 50px rgba(245,197,24,0.06);
+    transform: translateY(-3px);
+  }
+
+  .exp-card .oqa-q { color: #fbbf24; }
+
+  .exp-card .oqa-rf {
+    border-left-color: var(--gold);
+  }
+
+  .exp-card .rf-tag { color: var(--gold); }
+
+
+  /* ── CAMPAIGN HOOK ── */
+  .campaign-hook {
+    background: linear-gradient(135deg, rgba(245,197,24,0.12), rgba(232,25,44,0.08));
+    border: 1px solid rgba(245,197,24,0.45);
+    border-left: 4px solid var(--gold);
+    border-radius: 14px;
+    padding: 22px 26px;
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .campaign-hook::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(120deg, rgba(245,197,24,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .campaign-hook::after {
+    content: '📣';
+    position: absolute; right: 20px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 36px; opacity: 0.12;
+  }
+
+  .ch-label {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 10px;
+    background: rgba(245,197,24,0.1); border: 1px solid rgba(245,197,24,0.3);
+    padding: 3px 10px; border-radius: 100px;
+  }
+
+  .ch-main {
+    font-size: 16px; font-weight: 700; color: var(--white);
+    margin-bottom: 8px; line-height: 1.5;
+  }
+
+  .ch-main .ch-highlight {
+    color: var(--gold);
+    text-shadow: 0 0 20px rgba(245,197,24,0.4);
+  }
+
+  .ch-sub {
+    font-size: 13px; color: var(--grey); line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  .ch-variants {
+    display: flex; flex-direction: column; gap: 8px;
+  }
+
+  .ch-variant {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 12px 16px;
+    font-size: 13px; color: var(--white); line-height: 1.6;
+    transition: all 0.3s; cursor: default;
+    display: flex; align-items: flex-start; gap: 10px;
+  }
+
+  .ch-variant:hover {
+    border-color: rgba(245,197,24,0.4);
+    background: rgba(245,197,24,0.05);
+    box-shadow: 0 0 14px rgba(245,197,24,0.18);
+    transform: translateX(4px);
+  }
+
+  .ch-v-num {
+    min-width: 22px; height: 22px; border-radius: 50%;
+    background: rgba(245,197,24,0.12); border: 1px solid rgba(245,197,24,0.3);
+    color: var(--gold); font-size: 10px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+
+  .ch-when {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; color: var(--grey); margin-top: 12px;
+    padding: 6px 12px; background: var(--card2);
+    border-radius: 8px; border: 1px solid var(--border);
+  }
+
+  .campaign-hook:hover {
+    box-shadow: 0 0 24px rgba(245,197,24,0.2), 0 0 60px rgba(245,197,24,0.06);
+    border-color: rgba(245,197,24,0.6);
+  }
+
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <img src="data:image/png;base64,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" alt="Adda247" style="height:34px;filter:brightness(1.05);">
+  </div>
+  <div class="nav-links">
+    <a href="#hero">Home</a>
+    <a href="#objectives">Objectives</a>
+    <a href="#repurchase-data">Repurchase Data</a>
+    <a href="#funnel-overview">Funnel Overview</a>
+    <a href="#upgrade-funnel">Upgrade Funnel</a>
+    <a href="#mahapack">Mahapack</a>
+    <a href="#product-upgrade">Product Table</a>
+    <a href="#upgrade-flow">Calling Flow</a>
+    <a href="#pitch-ts">Pitch Examples</a>
+    <a href="#expiry-funnel">Expiry Funnel</a>
+    <a href="#student-types">Student Types</a>
+    <a href="#expiry-flow">Expiry Flow</a>
+    <a href="#comparison">Comparison</a>
+    <a href="#mindset">Mindset</a><a href="#need-generation">Need Gen</a><a href="#objection-upgrade">Objections ↑</a><a href="#objection-expiry">Objections ⟳</a>
+  </div>
+</nav>
+
+<!-- ───────────── S1: HERO ───────────── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-eyebrow">📞 Adda247 Sales Training</div>
+  <h1 class="hero-title">
+    Repurchase Calling Funnel:<br>
+    <span class="accent">Upgrade</span> & <span class="gold">Expiry</span> Conversion
+  </h1>
+  <p class="hero-subtitle">How to identify, pitch, and convert existing learners into higher-value plans</p>
+
+  <div class="hero-funnel">
+    <div class="funnel-top">📊 Repurchase Data</div>
+    <div class="funnel-arrow">▼</div>
+    <div class="funnel-branches">
+      <div class="funnel-branch">
+        <div class="branch-icon">🚀</div>
+        <div class="branch-title" style="color:var(--red)">Upgrade Funnel</div>
+        <div class="branch-desc">Move students from limited products to Mahapack</div>
+      </div>
+      <div class="funnel-branch">
+        <div class="branch-icon">🔄</div>
+        <div class="branch-title" style="color:var(--gold)">Expiry Funnel</div>
+        <div class="branch-desc">Renew & reactivate expired or near-expiry students</div>
+      </div>
+    </div>
+  </div>
+
+  <a href="#objectives" class="btn-start">Start Training ▶</a>
+</section>
+
+<!-- ───────────── S2: OBJECTIVES ───────────── -->
+<section id="objectives">
+  <div class="section-label">Section 02</div>
+  <div class="section-divider"></div>
+  <h2>Training Objectives</h2>
+  <p class="section-desc">By the end of this session, counsellors will be able to:</p>
+
+  <div class="obj-grid">
+    <div class="obj-card">
+      <div class="obj-num">01</div>
+      <div class="obj-icon">📋</div>
+      <div class="obj-title">Understand Repurchase Data</div>
+      <div class="obj-text">Know what repurchase data means and why it is different from cold leads</div>
+    </div>
+    <div class="obj-card">
+      <div class="obj-num">02</div>
+      <div class="obj-icon">🔀</div>
+      <div class="obj-title">Identify Funnel Type</div>
+      <div class="obj-text">Differentiate between Upgrade Funnel and Expiry Funnel</div>
+    </div>
+    <div class="obj-card">
+      <div class="obj-num">03</div>
+      <div class="obj-icon">🎯</div>
+      <div class="obj-title">Identify Student Type</div>
+      <div class="obj-text">Profile each student based on their current product and activity</div>
+    </div>
+    <div class="obj-card">
+      <div class="obj-num">04</div>
+      <div class="obj-icon">💎</div>
+      <div class="obj-title">Pitch Mahapack Effectively</div>
+      <div class="obj-text">Use the right upgrade pitch for Test Series, Ebook, and Video Course buyers</div>
+    </div>
+    <div class="obj-card">
+      <div class="obj-num">05</div>
+      <div class="obj-icon">🔁</div>
+      <div class="obj-title">Renew Expired Students</div>
+      <div class="obj-text">Handle both active and inactive expired students with the right script</div>
+    </div>
+    <div class="obj-card">
+      <div class="obj-num">06</div>
+      <div class="obj-icon">📞</div>
+      <div class="obj-title">Handle Calling Situations</div>
+      <div class="obj-text">Navigate different call scenarios with confidence and structure</div>
+    </div>
+  </div>
+
+  <a href="#repurchase-data" class="next-btn">Next: What is Repurchase Data? →</a>
+</section>
+
+<!-- ───────────── S3: REPURCHASE DATA ───────────── -->
+<section id="repurchase-data">
+  <div class="section-label">Section 03</div>
+  <div class="section-divider"></div>
+  <h2>What is Repurchase Data?</h2>
+  <p class="section-desc">Students who have already made at least one purchase from Adda247 — across any product, any exam vertical.</p>
+
+  <div class="purchase-grid" id="purchase-grid">
+    <div class="purchase-card"><div class="icon">📝</div><div class="label">Test Series</div></div>
+    <div class="purchase-card"><div class="icon">🎥</div><div class="label">Live Classes</div></div>
+    <div class="purchase-card"><div class="icon">▶️</div><div class="label">Video Course</div></div>
+    <div class="purchase-card"><div class="icon">📚</div><div class="label">Ebooks</div></div>
+    <div class="purchase-card"><div class="icon">💎</div><div class="label">Previous Mahapack</div></div>
+    <div class="purchase-card"><div class="icon">⏳</div><div class="label">Near-Expiry Subscription</div></div>
+    <div class="purchase-card"><div class="icon">❌</div><div class="label">Expired Access</div></div>
+  </div>
+
+  <div class="trainer-note">
+    <div class="tn-icon">💡</div>
+    <div>
+      <div class="tn-label">Trainer Note</div>
+      <p>"These students already trust Adda247, so the call should not sound like a cold sales call. It should sound like guidance and value addition."</p>
+    </div>
+  </div>
+
+  <a href="#funnel-overview" class="next-btn">Next: Funnel Overview →</a>
+</section>
+
+<!-- ───────────── S4: FUNNEL OVERVIEW ───────────── -->
+<section id="funnel-overview">
+  <div class="section-label">Section 04</div>
+  <div class="section-divider"></div>
+  <h2>Repurchase Funnel Overview</h2>
+  <p class="section-desc">All repurchase data flows into one of two funnels, based on what the student currently has.</p>
+
+  <div class="big-funnel">
+    <div class="funnel-stage fs-1">📊 Repurchase Data — Existing Students</div>
+    <div class="funnel-join">↓</div>
+    <div class="funnel-stage fs-2">🚀 Upgrade Funnel</div>
+    <div class="funnel-join" style="color:var(--gold)">↓</div>
+    <div class="funnel-stage fs-3">🔄 Expiry Funnel</div>
+  </div>
+
+  <div class="funnel-cards">
+    <div class="funnel-card upgrade" onclick="document.getElementById('upgrade-funnel').scrollIntoView({behavior:'smooth'})">
+      <div class="fc-icon">🚀</div>
+      <div class="fc-title" style="color:var(--red)">Upgrade Funnel</div>
+      <div class="fc-desc">Student has a limited product (Test Series, Ebook, Video Course, Individual Live Class). Goal: Upsell to Mahapack for complete preparation access.</div>
+      <br>
+      <span style="font-size:13px;color:var(--red);font-weight:600;">Explore Upgrade Funnel →</span>
+    </div>
+    <div class="funnel-card expiry" onclick="document.getElementById('expiry-funnel').scrollIntoView({behavior:'smooth'})">
+      <div class="fc-icon">🔄</div>
+      <div class="fc-title" style="color:var(--gold)">Expiry Funnel</div>
+      <div class="fc-desc">Student's course, batch, subscription, or Mahapack access has expired or is about to expire. Goal: Renew or reactivate with urgency and value.</div>
+      <br>
+      <span style="font-size:13px;color:var(--gold);font-weight:600;">Explore Expiry Funnel →</span>
+    </div>
+  </div>
+
+  <a href="#upgrade-funnel" class="next-btn">Next: Part 1 — Upgrade Funnel →</a>
+</section>
+
+<!-- ───────────── S5: UPGRADE FUNNEL INTRO ───────────── -->
+<section id="upgrade-funnel">
+  <div class="part-header">
+    <div class="part-num">1</div>
+    <div class="part-label">Part 1 — Upgrade Funnel</div>
+  </div>
+  <div class="section-label">Section 05</div>
+  <div class="section-divider"></div>
+  <h2>What is the Upgrade Funnel?</h2>
+  <p class="section-desc">Moving a student from a smaller, limited product to the most complete and value-packed option — Mahapack.</p>
+
+  <div class="trainer-note">
+    <div class="tn-icon">📖</div>
+    <div>
+      <div class="tn-label">Definition</div>
+      <p>Upgrade means when a student has purchased a <strong>limited product</strong> like Test Series, Ebook, Video Course, or Individual Live Class, and the counsellor upsells the student to <strong>Mahapack</strong> — which provides complete, all-in-one preparation access.</p>
+    </div>
+  </div>
+
+  <div style="margin: 28px 0 12px; font-size: 13px; color: var(--grey); font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Example: Test Series → Mahapack</div>
+  <div class="transform-visual">
+    <div class="tv-box">
+      <div style="font-size:24px;margin-bottom:6px">📝</div>
+      Test Series Only<br><span style="font-size:11px;color:var(--grey)">Practice only</span>
+    </div>
+    <div class="tv-arrow">→</div>
+    <div class="tv-box">
+      <div style="font-size:24px;margin-bottom:6px">💎</div>
+      Mahapack<br><span style="font-size:11px;color:var(--grey)">Complete access</span>
+    </div>
+    <div class="tv-arrow" style="color:var(--gold)">→</div>
+    <div class="tv-box highlight">
+      <div style="font-size:24px;margin-bottom:6px">🏆</div>
+      Full Preparation<br><span style="font-size:11px;color:var(--red)">Live + Recorded + Tests + Material</span>
+    </div>
+  </div>
+
+  <a href="#mahapack" class="next-btn">Next: What is Mahapack? →</a>
+</section>
+
+<!-- ───────────── S6: MAHAPACK ───────────── -->
+<section id="mahapack">
+  <div class="section-label">Section 06</div>
+  <div class="section-divider"></div>
+  <h2>What is Mahapack?</h2>
+  <p class="section-desc">Mahapack is Adda247's all-in-one complete preparation subscription — one pass, maximum value, zero compromise.</p>
+
+  <div class="mahapack-center">
+    <div class="mahapack-badge">💎 Mahapack</div>
+    <div class="mahapack-tagline">"One subscription. Complete preparation. Maximum value."</div>
+  </div>
+
+  <div class="benefit-grid">
+    <div class="benefit-card"><div class="bi">🎬</div><div class="bt">Live Classes</div></div>
+    <div class="benefit-card"><div class="bi">▶️</div><div class="bt">Recorded Classes</div></div>
+    <div class="benefit-card"><div class="bi">🎥</div><div class="bt">Video Courses</div></div>
+    <div class="benefit-card"><div class="bi">📝</div><div class="bt">Test Series</div></div>
+    <div class="benefit-card"><div class="bi">📚</div><div class="bt">Ebooks</div></div>
+    <div class="benefit-card"><div class="bi">🔄</div><div class="bt">Multiple Batches</div></div>
+    <div class="benefit-card"><div class="bi">🎯</div><div class="bt">All Exam Verticals</div></div>
+    <div class="benefit-card"><div class="bi">💰</div><div class="bt">Better Value vs. Individual Products</div></div>
+  </div>
+
+  <a href="#product-upgrade" class="next-btn">Next: Product-wise Upgrade Table →</a>
+</section>
+
+<!-- ───────────── S7: PRODUCT UPGRADE TABLE ───────────── -->
+<section id="product-upgrade">
+  <div class="section-label">Section 07</div>
+  <div class="section-divider"></div>
+  <h2>Product-wise Upgrade Opportunity</h2>
+  <p class="section-desc">Every limited product has a gap. Your job is to identify the gap and bridge it with Mahapack. Hover over rows to see the pitch angle.</p>
+
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>Current Product</th>
+        <th>What Student Has</th>
+        <th>Limitation</th>
+        <th class="pitch">Upgrade Pitch Angle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="tag-red">📝</span><br><span class="current">Test Series</span></td>
+        <td style="color:var(--grey);font-size:13px">Practice tests only</td>
+        <td class="limitation">Only practice available — no concept clarity</td>
+        <td class="pitch">"Practice ke saath concept clarity bhi zaroori hai"</td>
+      </tr>
+      <tr>
+        <td><span class="tag-red">📚</span><br><span class="current">Ebook</span></td>
+        <td style="color:var(--grey);font-size:13px">Reading material only</td>
+        <td class="limitation">Self-study without live guidance or practice</td>
+        <td class="pitch">"Self-study ke saath live guidance chahiye"</td>
+      </tr>
+      <tr>
+        <td><span class="tag-red">▶️</span><br><span class="current">Video Course</span></td>
+        <td style="color:var(--grey);font-size:13px">Recorded content only</td>
+        <td class="limitation">No live doubt-solving or updated batches</td>
+        <td class="pitch">"Recorded ke saath live doubt-solving aur updated batches milenge"</td>
+      </tr>
+      <tr>
+        <td><span class="tag-red">🎬</span><br><span class="current">Individual Live Class</span></td>
+        <td style="color:var(--grey);font-size:13px">Single batch access</td>
+        <td class="limitation">Limited batch, no full preparation ecosystem</td>
+        <td class="pitch">"Mahapack mein multiple batches aur complete access milega"</td>
+      </tr>
+      <tr>
+        <td><span class="tag-red">⏰</span><br><span class="current">Old Course</span></td>
+        <td style="color:var(--grey);font-size:13px">Outdated or limited validity</td>
+        <td class="limitation">Expired features, not aligned with current exam pattern</td>
+        <td class="pitch">"Updated preparation ke liye complete access better rahega"</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <a href="#upgrade-flow" class="next-btn">Next: Upgrade Calling Flow →</a>
+</section>
+
+<!-- ───────────── S8: UPGRADE CALLING FLOW ───────────── -->
+<section id="upgrade-flow">
+  <div class="section-label">Section 08</div>
+  <div class="section-divider"></div>
+  <h2>Upgrade Funnel — Calling Flow</h2>
+  <p class="section-desc">Follow this 8-step structure for every upgrade call. Each step builds the next.</p>
+
+  <div class="call-flow" id="upgrade-flow-steps">
+    <div class="flow-step">
+      <div class="flow-num">📞</div>
+      <div class="flow-content">
+        <div class="flow-title">Step 1: Greet & Verify</div>
+        <div class="flow-desc">"Good morning Sir/Ma'am, mera naam [Name] hai, main Adda247 se bol raha hoon. Kya aap [Student Name] ji bol rahe hain?"</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">🔍</div>
+      <div class="flow-content">
+        <div class="flow-title">Step 2: Identify Current Purchase</div>
+        <div class="flow-desc">Check the CRM for what product they have. Confirm on call: "Aapne humari Test Series/Ebook/Video Course li thi na?"</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">❓</div>
+      <div class="flow-content">
+        <div class="flow-title">Step 3: Ask Preparation Status</div>
+        <div class="flow-desc">"Preparation kaise chal rahi hai? Exam ka koi specific target hai kya aapka?"</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">🎯</div>
+      <div class="flow-content">
+        <div class="flow-title">Step 4: Identify Gap in Current Product</div>
+        <div class="flow-desc">Establish that what they have is not enough for complete preparation. Use a relevant limitation from the product table.</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">💎</div>
+      <div class="flow-content">
+        <div class="flow-title">Step 5: Connect Gap with Mahapack Value</div>
+        <div class="flow-desc">"Jo aapko chahiye — live guidance, tests, recorded videos — yeh sab ek jagah Mahapack mein milta hai."</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">📊</div>
+      <div class="flow-content">
+        <div class="flow-title">Step 6: Explain Benefit Comparison</div>
+        <div class="flow-desc">Compare their current product vs Mahapack features. Be specific — mention what they'll additionally get.</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">⏰</div>
+      <div class="flow-content">
+        <div class="flow-title">Step 7: Create Urgency or Relevance</div>
+        <div class="flow-desc">Mention exam dates, batch start dates, or limited offer validity to make action urgent.</div>
+      </div>
+    </div>
+      <div class="campaign-hook" style="margin-left:64px;">
+        <div class="ch-label">📣 Campaign Hook — Use at Step 7</div>
+        <div class="ch-main">"Sir/Ma'am, <span class="ch-highlight">hum abhi existing users ke liye ek special campaign run kar rahe hain</span> — aur aap iske liye eligible hain."</div>
+        <div class="ch-sub">Use this line right at the urgency step to open the door — then continue with pricing, batch dates, or limited validity. It immediately shifts the tone from "sales push" to "exclusive offer for you."</div>
+        <div class="ch-variants">
+          <div class="ch-variant"><div class="ch-v-num">1</div>"Sir/Ma'am, hum abhi apne existing users ke liye ek special campaign run kar rahe hain. Aap is campaign ke under Mahapack upgrade kar sakte ho better price par."</div>
+          <div class="ch-variant"><div class="ch-v-num">2</div>"Aapke liye ek good news hai — hamare existing students ke liye abhi ek limited campaign chal rahi hai. Isliye aaj hi decision lena aapke liye best time hai."</div>
+          <div class="ch-variant"><div class="ch-v-num">3</div>"Sir/Ma'am, main isliye call kar raha tha — hum ek exclusive upgrade campaign run kar rahe hain sirf un students ke liye jo already Adda247 par hain. Aap directly eligible ho."</div>
+        </div>
+        <div class="ch-when">⚡ Then continue → Batch dates / Offer validity / Payment support</div>
+      </div>
+
+    <div class="flow-step">
+      <div class="flow-num">✅</div>
+      <div class="flow-content">
+        <div class="flow-title">Step 8: Close with Payment / Support</div>
+        <div class="flow-desc">"Kya main aapko payment link bhej doon? Main poori process mein aapki help kar sakta hoon."</div>
+      </div>
+    </div>
+  </div>
+
+  <a href="#pitch-ts" class="next-btn">Next: Pitch Examples →</a>
+</section>
+
+<!-- ───────────── S9: PITCH — TEST SERIES ───────────── -->
+<section id="pitch-ts">
+  <div class="section-label">Section 09</div>
+  <div class="section-divider"></div>
+  <h2>Upgrade Pitch: Test Series → Mahapack</h2>
+
+  <div class="transform-visual">
+    <div class="tv-box"><div style="font-size:28px;margin-bottom:6px">📝</div>Test Series</div>
+    <div class="tv-arrow">→</div>
+    <div class="tv-box highlight"><div style="font-size:28px;margin-bottom:6px">💎</div>Mahapack</div>
+  </div>
+
+  <div class="pitch-card">
+    <div class="pitch-label">
+      <div class="pl-icon">📞</div>
+      <div class="pl-text">Upgrade Pitch Script</div>
+    </div>
+    <div class="pitch-body">
+      "Sir/Ma'am, aapne test series li hai, which is great for practice. Lekin sirf test dene se preparation complete nahi hoti. <strong>Test ke result ke baad agar concept weak nikla, toh usko improve karne ke liye live classes, recorded classes aur complete study material bhi chahiye.</strong> Isliye Mahapack aapke liye better option hai — jisme test series ke saath live classes, recorded classes, ebooks aur multiple batches ka access milta hai. Ek hi subscription mein poori preparation."
+    </div>
+  </div>
+
+  
+  <div class="campaign-hook" style="margin-top:0;">
+    <div class="ch-label">📣 Open With Campaign Hook</div>
+    <div class="ch-main">"Sir/Ma'am, <span class="ch-highlight">hum abhi existing users ke liye ek special campaign run kar rahe hain</span> — aur aapko is campaign ke baare mein batana tha."</div>
+    <div class="ch-sub">Start the call with this line before identifying the product gap. It creates instant curiosity, lowers resistance, and makes the student feel valued — not sold to. Then transition into the product-specific pitch.</div>
+    <div class="ch-when">⚡ Use as call opener → Then move to gap identification → Then pitch Mahapack</div>
+  </div>
+
+  <div class="trainer-note">
+    <div class="tn-icon">🎯</div>
+    <div>
+      <div class="tn-label">Key Insight</div>
+      <p>The student already practices — your job is to show them that practice without concept clarity is incomplete preparation. Connect the gap with Mahapack.</p>
+    </div>
+  </div>
+
+  <a href="#pitch-eb" class="next-btn">Next: Ebook Pitch →</a>
+</section>
+
+<!-- ───────────── S10: PITCH — EBOOK ───────────── -->
+<section id="pitch-eb">
+  <div class="section-label">Section 10</div>
+  <div class="section-divider"></div>
+  <h2>Upgrade Pitch: Ebook → Mahapack</h2>
+
+  <div class="transform-visual">
+    <div class="tv-box"><div style="font-size:28px;margin-bottom:6px">📚</div>Ebook</div>
+    <div class="tv-arrow">→</div>
+    <div class="tv-box highlight"><div style="font-size:28px;margin-bottom:6px">🎓</div>Guided Learning System</div>
+  </div>
+
+  <div class="pitch-card">
+    <div class="pitch-label">
+      <div class="pl-icon">📞</div>
+      <div class="pl-text">Upgrade Pitch Script</div>
+    </div>
+    <div class="pitch-body">
+      "Sir/Ma'am, ebook self-study ke liye useful hai, but <strong>exam preparation mein sirf reading enough nahi hoti.</strong> Aapko proper guidance, classes, test practice aur revision support bhi chahiye. Mahapack mein aapko complete preparation ecosystem milta hai — live classes, recorded content, test series, ebooks aur multiple batches. Sirf ek subscription mein — study bhi, guidance bhi, practice bhi."
+    </div>
+  </div>
+
+  <a href="#pitch-vc" class="next-btn">Next: Video Course Pitch →</a>
+</section>
+
+<!-- ───────────── S11: PITCH — VIDEO COURSE ───────────── -->
+<section id="pitch-vc">
+  <div class="section-label">Section 11</div>
+  <div class="section-divider"></div>
+  <h2>Upgrade Pitch: Video Course → Mahapack</h2>
+
+  <div class="transform-visual">
+    <div class="tv-box"><div style="font-size:28px;margin-bottom:6px">▶️</div>Video Course</div>
+    <div class="tv-arrow">→</div>
+    <div class="tv-box"><div style="font-size:28px;margin-bottom:6px">🎬</div>Live Classes</div>
+    <div class="tv-arrow">+</div>
+    <div class="tv-box highlight"><div style="font-size:28px;margin-bottom:6px">💎</div>Mahapack</div>
+  </div>
+
+  <div class="pitch-card">
+    <div class="pitch-label">
+      <div class="pl-icon">📞</div>
+      <div class="pl-text">Upgrade Pitch Script</div>
+    </div>
+    <div class="pitch-body">
+      "Sir/Ma'am, video course mein recorded content milta hai — jo bahut helpful hai. <strong>Lekin agar doubt aaye ya updated batch join karna ho, toh limitation aa sakti hai.</strong> Mahapack mein recorded ke saath live classes, multiple batches, test series aur study material bhi milta hai. Preparation zyada structured ho jaati hai aur aap har cheez ek hi platform par pate ho."
+    </div>
+  </div>
+
+  <a href="#expiry-funnel" class="next-btn">Next: Part 2 — Expiry Funnel →</a>
+</section>
+
+<!-- ───────────── S12: EXPIRY FUNNEL ───────────── -->
+<section id="expiry-funnel">
+  <div class="part-header">
+    <div class="part-num" style="background:var(--gold);color:var(--bg)">2</div>
+    <div class="part-label" style="color:var(--gold)">Part 2 — Expiry Funnel</div>
+  </div>
+  <div class="section-label">Section 12</div>
+  <div class="section-divider" style="background:linear-gradient(90deg,var(--gold),transparent)"></div>
+  <h2>What is the Expiry Funnel?</h2>
+  <p class="section-desc">Students whose course, batch, subscription, test series, or Mahapack access has already expired — or is about to expire within 7–30 days.</p>
+
+  <div class="trainer-note" style="border-left-color:var(--gold);background:linear-gradient(135deg,rgba(245,197,24,0.08),transparent)">
+    <div class="tn-icon">⏳</div>
+    <div>
+      <div class="tn-label" style="color:var(--gold)">Objective</div>
+      <p>Renew the student by showing loss of access, preparation continuity, updated content, and exam urgency. <strong>The tone is reconnect — not pitch.</strong></p>
+    </div>
+  </div>
+
+  <div class="transform-visual">
+    <div class="tv-box"><div style="font-size:28px;margin-bottom:6px">❌</div>Expired Access</div>
+    <div class="tv-arrow" style="color:var(--gold)">→</div>
+    <div class="tv-box"><div style="font-size:28px;margin-bottom:6px">📞</div>Renewal Call</div>
+    <div class="tv-arrow" style="color:var(--gold)">→</div>
+    <div class="tv-box highlight" style="border-color:rgba(245,197,24,0.4);box-shadow:0 0 20px rgba(245,197,24,0.15)"><div style="font-size:28px;margin-bottom:6px">✅</div>Preparation Continues</div>
+  </div>
+
+  <a href="#student-types" class="next-btn">Next: Expiry Student Types →</a>
+</section>
+
+<!-- ───────────── S13: STUDENT TYPES ───────────── -->
+<section id="student-types">
+  <div class="section-label">Section 13</div>
+  <div class="section-divider"></div>
+  <h2>Expiry Student Types</h2>
+  <p class="section-desc">Not all expired students are the same. Identify the type before dialing — it changes everything about your pitch.</p>
+
+  <div class="student-grid">
+    <div class="student-card active">
+      <div class="sc-status green"><div class="sc-dot green"></div>Website Active</div>
+      <div class="sc-title">🟢 Active but Expired</div>
+      <div class="sc-desc">These students still visit the app/website after expiry. Intent is present — they are still exploring. They haven't renewed yet, likely due to price, timing, or waiting for the right reason.</div>
+      <div class="sc-indicators">
+        <div class="sc-ind yes"><div class="dot"></div>App logins after expiry</div>
+        <div class="sc-ind yes"><div class="dot"></div>Content page visits</div>
+        <div class="sc-ind yes"><div class="dot"></div>Test attempt attempts</div>
+        <div class="sc-ind yes"><div class="dot"></div>Recent browsing activity</div>
+      </div>
+    </div>
+    <div class="student-card inactive">
+      <div class="sc-status red"><div class="sc-dot red"></div>Website Inactive</div>
+      <div class="sc-title">🔴 Inactive & Expired</div>
+      <div class="sc-desc">These students have stopped visiting altogether. They may have lost interest, shifted to a competitor, paused prep, or simply need a strong reconnection trigger to restart.</div>
+      <div class="sc-indicators">
+        <div class="sc-ind no"><div class="dot"></div>No app logins</div>
+        <div class="sc-ind no"><div class="dot"></div>No course activity</div>
+        <div class="sc-ind no"><div class="dot"></div>No test attempts</div>
+        <div class="sc-ind no"><div class="dot"></div>No recent engagement</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="trainer-note">
+    <div class="tn-icon">🎯</div>
+    <div>
+      <div class="tn-label">Trainer Note</div>
+      <p>For active students: focus on <strong>continuity and missing access</strong>. For inactive students: first <strong>reconnect emotionally</strong>, then reactivate the exam goal, then pitch renewal.</p>
+    </div>
+  </div>
+
+  <a href="#expiry-flow" class="next-btn">Next: Expiry Calling Flow →</a>
+</section>
+
+<!-- ───────────── S14: EXPIRY CALLING FLOW ───────────── -->
+<section id="expiry-flow">
+  <div class="section-label">Section 14</div>
+  <div class="section-divider"></div>
+  <h2>Expiry Funnel — Calling Flow</h2>
+  <p class="section-desc">An 8-step reconnect and reactivation call structure for all expired students.</p>
+
+  <div class="call-flow" id="expiry-flow-steps">
+    <div class="flow-step">
+      <div class="flow-num">👋</div>
+      <div class="flow-content">
+        <div class="flow-title">Step 1: Greet & Reconnect</div>
+        <div class="flow-desc">"Good morning Sir/Ma'am, main Adda247 se [Name] bol raha hoon. Kaafi time baad baat ho rahi hai — preparation kaise chal rahi hai?"</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">📋</div>
+      <div class="flow-content">
+        <div class="flow-title">Step 2: Mention Previous Course</div>
+        <div class="flow-desc">"Aapki [Course Name] ki validity expire ho gayi hai. Main isliye specifically call kar raha hoon."</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">❓</div>
+      <div class="flow-content">
+        <div class="flow-title">Step 3: Check Preparation Status</div>
+        <div class="flow-desc">"Abhi preparation continue hai ya koi break liya hai? Exam target still active hai?"</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">🔍</div>
+      <div class="flow-content">
+        <div class="flow-title">Step 4: Identify Why Renewal Hasn't Happened</div>
+        <div class="flow-desc">Listen carefully — price, confusion, other platform, lost interest. Identify and address the real block.</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">📉</div>
+      <div class="flow-content">
+        <div class="flow-title">Step 5: Show What They're Missing</div>
+        <div class="flow-desc">"Expiry ke baad aap updated classes, live tests, recorded sessions aur study material access nahi kar pa rahe — yeh prep gap create karta hai."</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">🎯</div>
+      <div class="flow-content">
+        <div class="flow-title">Step 6: Connect Renewal with Exam Goal</div>
+        <div class="flow-desc">"Aap [Exam Name] ki preparation kar rahe ho — aur exam [date/month] mein hai. Is gap mein updated content aur practice zaroor chahiye."</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">💎</div>
+      <div class="flow-content">
+        <div class="flow-title">Step 7: Pitch Renewal / Mahapack</div>
+        <div class="flow-desc">Based on previous product — either pitch a renewal or upgrade to Mahapack for complete access going forward.</div>
+      </div>
+    </div>
+      <div class="campaign-hook" style="margin-left:64px;border-left-color:var(--red);">
+        <div class="ch-label" style="color:var(--red);background:var(--red-glow);border-color:var(--border-red);">📣 Campaign Hook — Use at Step 7 (Expiry)</div>
+        <div class="ch-main">"Sir/Ma'am, <span class="ch-highlight" style="color:var(--red);text-shadow:0 0 20px rgba(232,25,44,0.4);">hum abhi existing users ke liye ek special renewal campaign run kar rahe hain</span> — aur aap directly eligible hain."</div>
+        <div class="ch-sub">For expiry students, this line removes the "why are you calling me" resistance. It repositions the call as a benefit notification, not a sales push.</div>
+        <div class="ch-variants">
+          <div class="ch-variant"><div class="ch-v-num" style="background:var(--red-glow);border-color:var(--border-red);color:var(--red);">1</div>"Sir/Ma'am, aapka Mahapack expire hua hai aur hum abhi existing users ke liye special renewal campaign run kar rahe hain. Aap is campaign mein renewal karke complete access restart kar sakte ho."</div>
+          <div class="ch-variant"><div class="ch-v-num" style="background:var(--red-glow);border-color:var(--border-red);color:var(--red);">2</div>"Main isliye specifically call kar raha tha — aap already hamare student ho, aur hamare existing users ke liye abhi ek limited-time renewal campaign available hai."</div>
+          <div class="ch-variant"><div class="ch-v-num" style="background:var(--red-glow);border-color:var(--border-red);color:var(--red);">3</div>"Aapke liye ek update tha — hum apne expired students ke liye special reactivation campaign run kar rahe hain. Preparation restart karne ka yeh better time hai."</div>
+        </div>
+        <div class="ch-when">⚡ Then continue → Renewal plan / Mahapack / Urgency close</div>
+      </div>
+
+    <div class="flow-step">
+      <div class="flow-num">✅</div>
+      <div class="flow-content">
+        <div class="flow-title">Step 8: Close with Urgency / Offer / Support</div>
+        <div class="flow-desc">"Main aapko link bhej deta hoon. Aur agar koi bhi issue ho toh directly mujhe call karo — main personally help karoonga."</div>
+      </div>
+    </div>
+  </div>
+
+  <a href="#pitch-active" class="next-btn">Next: Expiry Pitch Examples →</a>
+</section>
+
+<!-- ───────────── S15: EXPIRY PITCH — ACTIVE ───────────── -->
+<section id="pitch-active">
+  <div class="section-label">Section 15</div>
+  <div class="section-divider"></div>
+  <h2>Expiry Pitch: Website Active Student</h2>
+
+  <div class="student-card active" style="margin-bottom:24px;max-width:400px">
+    <div class="sc-status green"><div class="sc-dot green"></div>Active But Expired</div>
+    <div style="font-size:13px;color:var(--grey)">Student is still visiting app — intent is present. Pitch: access continuity + urgency.</div>
+  </div>
+
+  <div class="pitch-card" style="border-left-color:rgba(74,222,128,0.6)">
+    <div class="pitch-label">
+      <div class="pl-icon">📞</div>
+      <div class="pl-text">Expiry Pitch Script — Active Student</div>
+    </div>
+    <div class="pitch-body">
+      "Sir/Ma'am, <strong>I noticed ki aapka access expire ho chuka hai, but aap abhi bhi preparation continue kar rahe ho.</strong> That means aapka intent strong hai — aur yeh bahut achhi baat hai. Ab agar access renew nahi hota, toh aap updated classes, tests, recorded videos aur study material miss kar sakte ho. Isliye better rahega ki aap renewal ya Mahapack le lo — taaki preparation break na ho aur exam tak complete support mile."
+    </div>
+  </div>
+
+  <div class="trainer-note">
+    <div class="tn-icon">💡</div>
+    <div>
+      <div class="tn-label">Pitch Logic</div>
+      <p>Acknowledge their effort first — they are still trying. Then create urgency by highlighting what they are currently missing. Do not start with selling.</p>
+    </div>
+  </div>
+
+  <a href="#pitch-inactive" class="next-btn">Next: Inactive Student Pitch →</a>
+</section>
+
+<!-- ───────────── S16: EXPIRY PITCH — INACTIVE ───────────── -->
+<section id="pitch-inactive">
+  <div class="section-label">Section 16</div>
+  <div class="section-divider"></div>
+  <h2>Expiry Pitch: Website Inactive Student</h2>
+
+  <div class="student-card inactive" style="margin-bottom:24px;max-width:400px">
+    <div class="sc-status red"><div class="sc-dot red"></div>Inactive & Expired</div>
+    <div style="font-size:13px;color:var(--grey)">No recent activity. Reconnect emotionally before pitching anything.</div>
+  </div>
+
+  <div class="pitch-card">
+    <div class="pitch-label">
+      <div class="pl-icon">📞</div>
+      <div class="pl-text">Expiry Pitch Script — Inactive Student</div>
+    </div>
+    <div class="pitch-body">
+      "Sir/Ma'am, aapka course access expire ho chuka hai aur kaafi time se aap active bhi nahi ho. <strong>Main bas ye samajhna chahta tha ki preparation continue hai ya pause ho gayi hai?</strong> Agar aap exam seriously target kar rahe ho, toh abhi updated batch, tests aur study support ke saath restart karna important hai. Mahapack aapko ek hi place par complete preparation access dega — taaki aap wahan se shuru kar sako jahan aap ruke the."
+    </div>
+  </div>
+
+  <div class="trainer-note">
+    <div class="tn-icon">🎯</div>
+    <div>
+      <div class="tn-label">Key Technique</div>
+      <p>Ask first — "preparation continue hai ya pause ho gayi?" This open question tells you the real reason for inactivity and helps you tailor the rest of the pitch accordingly.</p>
+    </div>
+  </div>
+
+  <a href="#comparison" class="next-btn">Next: Upgrade vs Expiry Comparison →</a>
+</section>
+
+<!-- ───────────── S17: COMPARISON TABLE ───────────── -->
+<section id="comparison">
+  <div class="section-label">Section 17</div>
+  <div class="section-divider"></div>
+  <h2>Upgrade vs Expiry — Full Comparison</h2>
+  <p class="section-desc">Two funnels, two different mindsets. Know which one you're in before you dial.</p>
+
+  <div class="toggle-btns">
+    <button class="toggle-btn active-upgrade" onclick="toggleHighlight('upgrade')">🚀 Highlight Upgrade</button>
+    <button class="toggle-btn" id="expiry-toggle" onclick="toggleHighlight('expiry')">🔄 Highlight Expiry</button>
+    <button class="toggle-btn" id="none-toggle" onclick="toggleHighlight('none')">View Both</button>
+  </div>
+
+  <table class="adv-table" id="adv-table">
+    <thead>
+      <tr>
+        <th style="width:22%">Parameter</th>
+        <th class="col-upgrade">🚀 Upgrade Funnel</th>
+        <th class="col-expiry">🔄 Expiry Funnel</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="col-param">Student Status</td>
+        <td class="col-upgrade">Active with a limited product</td>
+        <td class="col-expiry">Expired or near-expiry access</td>
+      </tr>
+      <tr>
+        <td class="col-param">Main Objective</td>
+        <td class="col-upgrade">Upsell to Mahapack</td>
+        <td class="col-expiry">Renew or reactivate access</td>
+      </tr>
+      <tr>
+        <td class="col-param">Pitch Focus</td>
+        <td class="col-upgrade">Better value & complete preparation</td>
+        <td class="col-expiry">Continuity, missed access, urgency</td>
+      </tr>
+      <tr>
+        <td class="col-param">Call Tone</td>
+        <td class="col-upgrade">Advisory + Upgrade</td>
+        <td class="col-expiry">Reconnect + Reactivate</td>
+      </tr>
+      <tr>
+        <td class="col-param">Key Opening Question</td>
+        <td class="col-upgrade">"Aapko complete preparation support chahiye?"</td>
+        <td class="col-expiry">"Aapki preparation continue hai ya pause?"</td>
+      </tr>
+      <tr>
+        <td class="col-param">Mahapack Role</td>
+        <td class="col-upgrade">Upgrade destination from limited product</td>
+        <td class="col-expiry">Renewal vehicle for complete access</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <a href="#mindset" class="next-btn">Next: Counsellor Mindset + Activity →</a>
+</section>
+
+<!-- ───────────── S18: MINDSET + ACTIVITY ───────────── -->
+<section id="mindset">
+  <div class="section-label">Section 18</div>
+  <div class="section-divider"></div>
+  <h2>Counsellor Mindset + Trainer Activity</h2>
+
+  <!-- PART A -->
+  <div style="font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--grey);margin-bottom:16px;">Part A — Counsellor Mindset</div>
+
+  <div class="mindset-grid">
+    <div class="mindset-card"><span class="mc-check">✓</span><span class="mc-text">Do not sound like you are forcing a sale — be a guide</span></div>
+    <div class="mindset-card"><span class="mc-check">✓</span><span class="mc-text">Understand what the student has already purchased</span></div>
+    <div class="mindset-card"><span class="mc-check">✓</span><span class="mc-text">Identify the limitation in their current product</span></div>
+    <div class="mindset-card"><span class="mc-check">✓</span><span class="mc-text">Connect Mahapack benefits with the student's specific goal</span></div>
+    <div class="mindset-card"><span class="mc-check">✓</span><span class="mc-text">For expiry students, reconnect emotionally before pitching</span></div>
+    <div class="mindset-card"><span class="mc-check">✓</span><span class="mc-text">Ask questions first — pitch second</span></div>
+    <div class="mindset-card"><span class="mc-check">✓</span><span class="mc-text">Sell complete preparation — not just a product or plan</span></div>
+  </div>
+
+  <div class="final-stmt">
+    "Repurchase calling is not cold selling.<br>
+    It is <span>value-based guidance</span> for an existing student."
+  </div>
+
+  <!-- PART B -->
+  <div style="font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--grey);margin:32px 0 16px;">Part B — Trainer Activity: 30-Second Pitch Challenge</div>
+  <p style="font-size:14px;color:var(--grey);margin-bottom:24px;">Click each card to reveal your task. Prepare a 30-second pitch for each case.</p>
+
+  <div class="activity-grid">
+    <div class="activity-card" onclick="this.classList.toggle('flipped')">
+      <div class="ac-inner">
+        <div class="ac-front"><div class="ac-num">Case 01</div><div class="ac-icon">📝</div><div class="ac-title">Test Series Buyer</div></div>
+        <div class="ac-back"><div class="ac-back-text">Pitch Mahapack to a Test Series buyer. Highlight: concept clarity gap, live guidance, complete preparation.</div></div>
+      </div>
+    </div>
+    <div class="activity-card" onclick="this.classList.toggle('flipped')">
+      <div class="ac-inner">
+        <div class="ac-front"><div class="ac-num">Case 02</div><div class="ac-icon">📚</div><div class="ac-title">Ebook Buyer</div></div>
+        <div class="ac-back"><div class="ac-back-text">Pitch Mahapack to an Ebook buyer. Highlight: reading alone isn't enough — they need live classes + practice.</div></div>
+      </div>
+    </div>
+    <div class="activity-card" onclick="this.classList.toggle('flipped')">
+      <div class="ac-inner">
+        <div class="ac-front"><div class="ac-num">Case 03</div><div class="ac-icon">▶️</div><div class="ac-title">Video Course Buyer</div></div>
+        <div class="ac-back"><div class="ac-back-text">Pitch Mahapack to a Video Course buyer. Highlight: recorded content has limits — no live doubt-solving or updated batches.</div></div>
+      </div>
+    </div>
+    <div class="activity-card" onclick="this.classList.toggle('flipped')">
+      <div class="ac-inner">
+        <div class="ac-front"><div class="ac-num">Case 04</div><div class="ac-icon">🟢</div><div class="ac-title">Expired Active Student</div></div>
+        <div class="ac-back"><div class="ac-back-text">Pitch renewal to an expired but website-active student. Highlight: you can see they're still trying — don't let the prep break now.</div></div>
+      </div>
+    </div>
+    <div class="activity-card" onclick="this.classList.toggle('flipped')">
+      <div class="ac-inner">
+        <div class="ac-front"><div class="ac-num">Case 05</div><div class="ac-icon">🔴</div><div class="ac-title">Expired Inactive Student</div></div>
+        <div class="ac-back"><div class="ac-back-text">Reconnect and pitch to an expired, inactive student. Highlight: ask about exam goal first — then reactivate the intent, then pitch.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timer-badge">
+    <div class="timer-icon">⏱</div>
+    <div class="timer-text">30-Second Pitch Challenge — Flip each card and pitch!</div>
+  </div>
+
+  <div style="margin-top:60px;padding:32px;background:var(--card);border:1px solid var(--border);border-radius:16px;text-align:center;">
+    <div style="font-size:32px;margin-bottom:16px">🏆</div>
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;margin-bottom:12px">Training Complete!</div>
+    <div style="font-size:14px;color:var(--grey);max-width:500px;margin:0 auto 24px">You are now equipped with the full Repurchase Calling Funnel framework. Apply it on every repurchase lead — upgrade or expiry.</div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px">
+      <img src="data:image/png;base64,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" alt="Adda247" style="height:44px;filter:brightness(1.05);">
+    </div>
+    <div style="font-size:12px;color:var(--grey);margin-top:10px;letter-spacing:1px">REPURCHASE CALLING FUNNEL TRAINING</div>
+  </div>
+</section>
+
+<script>
+  // ── PROGRESS BAR ──
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    document.getElementById('progress-bar').style.width = progress + '%';
+
+    // Nav active state
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 200) current = sec.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+  });
+
+  // ── SCROLL ANIMATION ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('section').forEach(s => observer.observe(s));
+
+  // ── STAGGERED CARDS ──
+  const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const cards = entry.target.querySelectorAll('.obj-card, .flow-step');
+        cards.forEach((c, i) => {
+          setTimeout(() => c.classList.add('animated'), i * 100);
+        });
+        const pCards = entry.target.querySelectorAll('.purchase-card');
+        pCards.forEach((c, i) => {
+          setTimeout(() => c.classList.add('animated'), i * 120);
+        });
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('section').forEach(s => cardObserver.observe(s));
+
+  // ── COMPARISON TOGGLE ──
+  function toggleHighlight(mode) {
+    const table = document.getElementById('adv-table');
+    const btns = document.querySelectorAll('.toggle-btn');
+    btns.forEach(b => b.classList.remove('active-upgrade','active-expiry'));
+
+    table.classList.remove('highlight-upgrade','highlight-expiry');
+
+    if (mode === 'upgrade') {
+      table.classList.add('highlight-upgrade');
+      btns[0].classList.add('active-upgrade');
+    } else if (mode === 'expiry') {
+      table.classList.add('highlight-expiry');
+      btns[1].classList.add('active-expiry');
+    }
+  }
+
+  function showNG(id) {
+    document.querySelectorAll('.ng-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('ng-' + id).classList.add('active');
+    document.querySelectorAll('#need-generation .ng-tab').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+  function showOBJ(id) {
+    document.querySelectorAll('.obj-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelectorAll('#objection-upgrade .ng-tab').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+
+</script>
+
+
+<!-- ───────────── S19: NEED GENERATION ───────────── -->
+<section id="need-generation">
+  <div class="section-label">Section 19</div>
+  <div class="section-divider"></div>
+  <h2>Need Generation Pitch Lines</h2>
+  <p class="section-desc">Product-wise pitch lines to create the need for Mahapack. Use these to open the upgrade conversation — before the student objects.</p>
+
+  <!-- Product Tabs -->
+  <div class="ng-tabs">
+    <button class="ng-tab active" onclick="showNG('ts')">📝 Test Series</button>
+    <button class="ng-tab" onclick="showNG('eb')">📚 Ebook</button>
+    <button class="ng-tab" onclick="showNG('vc')">▶️ Video Course</button>
+    <button class="ng-tab" onclick="showNG('lc')">🎬 Live Class</button>
+    <button class="ng-tab" onclick="showNG('uq')">🌐 Universal</button>
+  </div>
+
+  <!-- TEST SERIES -->
+  <div class="ng-panel active" id="ng-ts">
+    <div class="ng-angle-box">
+      <div class="na-label">📌 Need Creation Angle</div>
+      <div class="na-text">"Practice is important, but practice alone is not preparation."</div>
+    </div>
+    <div class="ng-lines-grid">
+      <div class="ng-line"><span class="nl-num">01</span>"Sir/Ma'am, test series aapko ye batati hai ki aap kaha weak ho, lekin weakness improve karne ke liye classes aur concept clarity bhi zaroori hoti hai."</div>
+      <div class="ng-line"><span class="nl-num">02</span>"Aap test de rahe ho, that is good. But test ke baad agar score low aata hai, toh us topic ko samajhne ke liye proper faculty guidance chahiye."</div>
+      <div class="ng-line"><span class="nl-num">03</span>"Sirf test attempt karne se selection nahi hota; test analysis ke baad improvement plan bhi hona chahiye."</div>
+      <div class="ng-line"><span class="nl-num">04</span>"Aapke paas abhi practice ka tool hai, but Mahapack mein practice ke saath learning, revision, recorded classes, ebooks aur live batches bhi milenge."</div>
+      <div class="ng-line"><span class="nl-num">05</span>"Test series result dikhata hai, Mahapack result improve karne ka complete system deta hai."</div>
+      <div class="ng-line"><span class="nl-num">06</span>"Agar aap sirf test dete rahenge aur concept gap clear nahi karenge, toh same mistake baar-baar repeat hogi."</div>
+      <div class="ng-line"><span class="nl-num">07</span>"Aap exam seriously target kar rahe ho, toh sirf test dena enough nahi hai. Complete preparation ecosystem chahiye."</div>
+      <div class="ng-line"><span class="nl-num">08</span>"Test series se aapko performance ka mirror milta hai, but Mahapack se performance improve karne ka support milta hai."</div>
+      <div class="ng-line"><span class="nl-num">09</span>"Abhi aapka preparation practice mode mein hai; Mahapack lene ke baad preparation complete mode mein aa jayegi."</div>
+    </div>
+    <div class="ng-closing">
+      <span class="nc-label">✅ Closing Line</span>
+      "Isliye sir/ma'am, aapke liye best upgrade Mahapack rahega, jisme test series ke saath complete preparation support milta hai."
+    </div>
+  </div>
+
+  <!-- EBOOK -->
+  <div class="ng-panel" id="ng-eb">
+    <div class="ng-angle-box">
+      <div class="na-label">📌 Need Creation Angle</div>
+      <div class="na-text">"Reading is useful, but guidance makes preparation faster and clearer."</div>
+    </div>
+    <div class="ng-lines-grid">
+      <div class="ng-line"><span class="nl-num">01</span>"Sir/Ma'am, ebook self-study ke liye achha hai, but exam preparation mein sirf reading enough nahi hoti."</div>
+      <div class="ng-line"><span class="nl-num">02</span>"Book padhne ke baad bhi doubt aata hai ki ye topic exam mein kaise apply hoga. Uske liye live classes aur faculty explanation important hota hai."</div>
+      <div class="ng-line"><span class="nl-num">03</span>"Ebook se content milta hai, lekin Mahapack se content ke saath proper guidance, classes, tests aur revision plan milta hai."</div>
+      <div class="ng-line"><span class="nl-num">04</span>"Sirf material hone se preparation complete nahi hoti; material ko kaise use karna hai, ye bhi important hai."</div>
+      <div class="ng-line"><span class="nl-num">05</span>"Aap padh rahe ho, that is good. But agar direction wrong ho ya important topics miss ho gaye, toh time waste ho sakta hai."</div>
+      <div class="ng-line"><span class="nl-num">06</span>"Ebook aapko information deti hai, Mahapack aapko preparation journey complete karwata hai."</div>
+      <div class="ng-line"><span class="nl-num">07</span>"Self-study tabhi strong hoti hai jab uske saath proper doubt-solving aur test practice ho."</div>
+      <div class="ng-line"><span class="nl-num">08</span>"Aapke paas study material hai, ab usko result mein convert karne ke liye Mahapack ka complete support lena better rahega."</div>
+    </div>
+    <div class="ng-closing">
+      <span class="nc-label">✅ Closing Line</span>
+      "Isliye sir/ma'am, ebook se aapka base banega, but Mahapack se aapki complete preparation strong hogi."
+    </div>
+  </div>
+
+  <!-- VIDEO COURSE -->
+  <div class="ng-panel" id="ng-vc">
+    <div class="ng-angle-box">
+      <div class="na-label">📌 Need Creation Angle</div>
+      <div class="na-text">"Recorded content is helpful, but live support and updated preparation are equally important."</div>
+    </div>
+    <div class="ng-lines-grid">
+      <div class="ng-line"><span class="nl-num">01</span>"Sir/Ma'am, video course recorded learning ke liye useful hai, but agar doubt aaye toh live support bhi zaroori hota hai."</div>
+      <div class="ng-line"><span class="nl-num">02</span>"Recorded video mein aap seekh sakte ho, lekin exam-oriented update, live class discipline aur doubt-solving ke liye Mahapack better rahega."</div>
+      <div class="ng-line"><span class="nl-num">03</span>"Video course aapko ek fixed content deta hai, but Mahapack mein aapko multiple batches, updated classes, tests aur study material milta hai."</div>
+      <div class="ng-line"><span class="nl-num">04</span>"Agar aapko kisi topic mein confusion ho, toh sirf recorded video repeat karna enough nahi hota; faculty guidance chahiye."</div>
+      <div class="ng-line"><span class="nl-num">05</span>"Video course se learning hoti hai, but Mahapack se learning + practice + revision + updated batch support milta hai."</div>
+      <div class="ng-line"><span class="nl-num">06</span>"Aapka current product one-way learning hai; Mahapack mein complete learning system hai."</div>
+      <div class="ng-line"><span class="nl-num">07</span>"Exam pattern aur questions update hote rehte hain, isliye updated batches aur live classes ka access important hai."</div>
+      <div class="ng-line"><span class="nl-num">08</span>"Mahapack aapko flexibility deta hai — recorded bhi, live bhi, test series bhi, ebooks bhi, multiple batches bhi."</div>
+    </div>
+    <div class="ng-closing">
+      <span class="nc-label">✅ Closing Line</span>
+      "Isliye sir/ma'am, video course ke saath Mahapack upgrade lene se aapki preparation zyada complete, updated aur structured ho jayegi."
+    </div>
+  </div>
+
+  <!-- LIVE CLASS -->
+  <div class="ng-panel" id="ng-lc">
+    <div class="ng-angle-box">
+      <div class="na-label">📌 Need Creation Angle</div>
+      <div class="na-text">"One batch is limited; Mahapack gives complete access."</div>
+    </div>
+    <div class="ng-lines-grid">
+      <div class="ng-line"><span class="nl-num">01</span>"Sir/Ma'am, aapne live class li hai, which means aap guided preparation prefer karte ho. But ek single batch se preparation limited ho sakti hai."</div>
+      <div class="ng-line"><span class="nl-num">02</span>"Individual live class mein aapko limited access milta hai, but Mahapack mein multiple batches aur complete content access milta hai."</div>
+      <div class="ng-line"><span class="nl-num">03</span>"Agar kisi batch ka timing miss ho gaya ya topic revise karna ho, toh Mahapack mein recorded aur multiple batch support milta hai."</div>
+      <div class="ng-line"><span class="nl-num">04</span>"Live class se aapko guidance milti hai, but Mahapack mein guidance ke saath test series, ebooks, video courses aur complete preparation material bhi milta hai."</div>
+      <div class="ng-line"><span class="nl-num">05</span>"Sirf ek batch par depend rehna risky ho sakta hai, especially jab exam preparation mein revision aur backup classes important hoti hain."</div>
+      <div class="ng-line"><span class="nl-num">06</span>"Aap already class-based learning kar rahe ho, so Mahapack aapke liye natural upgrade hai."</div>
+      <div class="ng-line"><span class="nl-num">07</span>"Agar aap ek batch se benefit le rahe ho, toh imagine kijiye multiple batches, tests, ebooks aur recorded support ke saath preparation kitni strong ho sakti hai."</div>
+      <div class="ng-line"><span class="nl-num">08</span>"Aapka learning intent already strong hai. Ab us intent ko full access ke saath convert karna important hai."</div>
+    </div>
+    <div class="ng-closing">
+      <span class="nc-label">✅ Closing Line</span>
+      "Isliye sir/ma'am, individual live class se Mahapack upgrade karna aapke liye best value decision rahega."
+    </div>
+  </div>
+
+  <!-- UNIVERSAL -->
+  <div class="ng-panel" id="ng-uq">
+    <div class="ng-angle-box" style="border-color:rgba(245,197,24,0.4);background:rgba(245,197,24,0.06)">
+      <div class="na-label" style="color:var(--gold)">🌐 Universal Questions to Ask Before Pitching</div>
+      <div class="na-text" style="color:var(--grey);font-size:13px">Ask these to understand need before jumping to pitch</div>
+    </div>
+    <div class="ng-lines-grid">
+      <div class="ng-line q-line"><span class="nl-num q">Q</span>"Aapka target exam kaunsa hai aur attempt kab hai?"</div>
+      <div class="ng-line q-line"><span class="nl-num q">Q</span>"Abhi aapki preparation kis level par hai — basic, moderate ya advanced?"</div>
+      <div class="ng-line q-line"><span class="nl-num q">Q</span>"Aapko zyada problem concept clarity mein aa rahi hai ya practice mein?"</div>
+      <div class="ng-line q-line"><span class="nl-num q">Q</span>"Test dene ke baad aap apni mistakes kaise improve kar rahe ho?"</div>
+      <div class="ng-line q-line"><span class="nl-num q">Q</span>"Aapko live guidance chahiye ya self-study se comfortable ho?"</div>
+      <div class="ng-line q-line"><span class="nl-num q">Q</span>"Aapko revision aur doubt-solving mein support mil raha hai ya nahi?"</div>
+      <div class="ng-line q-line"><span class="nl-num q">Q</span>"Aap sirf ek product se preparation manage kar rahe ho, ya complete plan chahiye?"</div>
+      <div class="ng-line q-line"><span class="nl-num q">Q</span>"Agar live classes, recorded classes, tests, ebooks aur batches ek hi subscription mein mil jaaye, toh preparation easy ho jayegi na?"</div>
+    </div>
+    <div class="ng-angle-box" style="margin-top:24px;">
+      <div class="na-label">💬 Universal Mahapack Positioning Lines</div>
+    </div>
+    <div class="ng-lines-grid">
+      <div class="ng-line"><span class="nl-num">✦</span>"Mahapack ek product nahi, complete preparation ecosystem hai."</div>
+      <div class="ng-line"><span class="nl-num">✦</span>"Limited product se limited support milta hai, Mahapack se complete support milta hai."</div>
+      <div class="ng-line"><span class="nl-num">✦</span>"Aapka goal selection hai, toh preparation bhi complete honi chahiye."</div>
+      <div class="ng-line"><span class="nl-num">✦</span>"Main aapko force nahi kar raha, but aapki need ke hisaab se ye better option hai."</div>
+      <div class="ng-line"><span class="nl-num">✦</span>"Aapka current product ek part cover karta hai, Mahapack complete journey cover karta hai."</div>
+      <div class="ng-line"><span class="nl-num">✦</span>"One subscription mein complete preparation ka support milta hai."</div>
+    </div>
+  </div>
+
+  <a href="#objection-upgrade" class="next-btn">Next: Upgrade Objection Handling →</a>
+</section>
+
+<!-- ───────────── S20: UPGRADE OBJECTION HANDLING ───────────── -->
+<section id="objection-upgrade">
+  <div class="section-label">Section 20</div>
+  <div class="section-divider"></div>
+  <h2>Upgrade Objection Handling</h2>
+  <p class="section-desc">Real objections from Test Series / Ebook / Video Course / Live Class buyers — with structured V-P-R-C responses.</p>
+
+  <div class="formula-box">
+    <div class="fb-title">📐 Core Formula: V → P → R → C</div>
+    <div class="formula-steps">
+      <div class="fs-pill red">✓ Validate <span>"Bilkul, aapka point valid hai"</span></div>
+      <div class="fs-pill gold">? Probe <span>"Bas ek cheez samajhna chahta hoon…"</span></div>
+      <div class="fs-pill blue">↺ Reframe <span>"Current product helpful hai, but complete prep ke liye…"</span></div>
+      <div class="fs-pill green">🎯 Connect + Pitch <span>"Aapka target selection hai, isliye Mahapack…"</span></div>
+    </div>
+  </div>
+
+  <!-- OBJ TABS -->
+  <div class="ng-tabs" style="margin-top:28px">
+    <button class="ng-tab active" onclick="showOBJ('obj-ts')">📝 Test Series</button>
+    <button class="ng-tab" onclick="showOBJ('obj-eb')">📚 Ebook</button>
+    <button class="ng-tab" onclick="showOBJ('obj-vc')">▶️ Video Course</button>
+    <button class="ng-tab" onclick="showOBJ('obj-lc')">🎬 Live Class</button>
+    <button class="ng-tab" onclick="showOBJ('obj-price')">💰 Price</button>
+    <button class="ng-tab" onclick="showOBJ('obj-decision')">🤔 Decision</button>
+    <button class="ng-tab" onclick="showOBJ('obj-trust')">⚠️ Trust/Usage</button>
+  </div>
+
+  <div class="obj-panel active" id="obj-ts">
+    <div class="obj-qa-grid">
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Mere paas test series hai, wahi enough hai."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Bilkul sir/ma'am, test series practice ke liye very important hai. But test series sirf ye batati hai ki score kya aa raha hai aur weakness kaha hai. Weakness improve karne ke liye concept classes, recorded lectures aur study material bhi chahiye. Mahapack mein test series ke saath complete learning support milta hai."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Test series result dikhata hai, Mahapack result improve karne ka system deta hai."</div>
+      </div>
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Main sirf practice karna chahta hoon, classes nahi chahiye."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Practice zaroori hai, but practice tabhi improve hoti hai jab galti ka reason clear ho. Baar-baar same topic mein mistake ho rahi hai toh sirf practice se improvement slow hoga. Mahapack mein test ke baad weak topics classes aur recorded videos se clear kar sakte ho."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Practice + concept clarity dono saath mein chalega, tabhi score improve hoga."</div>
+      </div>
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Mujhe score analysis mil jaata hai, aur kya chahiye?"</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Sir/ma'am, score analysis problem batata hai, solution nahi deta. Agar Quant mein percentage weak hai, analysis dikha dega ki weak hai — but strong karne ke liye class, explanation aur revision material chahiye. Mahapack isi gap ko cover karta hai."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Analysis tells the problem, Mahapack gives the solution."</div>
+      </div>
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Pehle test de lunga, baad mein dekhenge."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Test dena start rakhiye. Bas issue ye hai ki agar test ke baad weakness aayi, toh improvement ke liye time chahiye. Last moment par concept clear karna difficult ho jata hai. Abhi Mahapack lete ho toh test ke saath-saath weakness improve karna start kar doge."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Test ke baad wait karne se better hai test ke saath improvement start karna."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="obj-panel" id="obj-eb">
+    <div class="obj-qa-grid">
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Mere paas ebook hai, main khud padh lunga."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Self-study achhi habit hai. Lekin important ye hai ki kya padhna hai, kaise padhna hai, kis topic ka exam weightage zyada hai, aur doubt aane par kaun guide karega. Mahapack mein ebook ke saath live classes, recorded videos, test series aur revision support milta hai."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Ebook content deti hai, Mahapack direction aur complete preparation deta hai."</div>
+      </div>
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Book se preparation ho jaati hai, class ki zaroorat nahi."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Book se preparation ka base ban sakta hai, but exam cracking ke liye application, shortcuts, doubt-solving aur practice bhi important hai. Class mein faculty wahi topic exam approach ke saath samjhati hai. Mahapack mein reading ke saath guidance bhi milegi."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Book knowledge deti hai, classes us knowledge ko exam-ready banati hain."</div>
+      </div>
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Ebook already le li hai, ab aur paisa kyun doon?"</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Aapka ebook investment waste nahi jaayega. Mahapack se aap us ebook ko better use kar paoge. Abhi ebook ek resource hai, but Mahapack mein same preparation journey classes, tests, videos aur revision ke saath complete ho jayegi."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Ebook ek resource hai, Mahapack complete preparation plan hai."</div>
+      </div>
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Mujhe reading comfortable lagti hai."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Agar reading comfortable ho toh base strong ban sakta hai. But kabhi-kabhi reading mein doubt clear nahi hota ya topic ka practical application miss ho jata hai. Mahapack mein aap reading continue kar sakte ho, aur jaha doubt aaye waha classes aur videos se clarity le sakte ho."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Reading aapka strength hai, Mahapack us strength ko complete support dega."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="obj-panel" id="obj-vc">
+    <div class="obj-qa-grid">
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Mere paas video course hai, wahi sufficient hai."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Video course recorded learning ke liye useful hai. But agar doubt aaye, updated batch chahiye, ya exam ke according latest practice chahiye, toh sirf recorded content limited ho sakta hai. Mahapack mein recorded ke saath live classes, test series, ebooks aur multiple batches ka access milta hai."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Video course learning deta hai, Mahapack learning + practice + revision + live support deta hai."</div>
+      </div>
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Recorded videos se main apne time par padh leta hoon."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Flexibility important hai, aur recorded videos usme help karte hain. But preparation mein discipline aur updated guidance bhi zaroori hoti hai. Mahapack mein flexibility bhi rahegi through recorded classes, aur structure bhi milega through live batches."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Mahapack mein flexibility bhi hai aur live discipline bhi."</div>
+      </div>
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Live class attend karne ka time nahi hai."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Isliye Mahapack useful hai — agar live attend nahi kar paate ho, toh recorded classes available rahengi. Plus test series, ebooks aur videos bhi milenge. Aap apne schedule ke hisaab se preparation continue kar paoge."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Mahapack live attend karne ki compulsion nahi, complete access ka benefit deta hai."</div>
+      </div>
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Mujhe doubt nahi aata, recorded enough hai."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Agar doubt kam aata hai toh self-learning strong hai. But preparation mein sirf doubt clear karna hi need nahi hoti. Updated questions, practice, revision, multiple batches aur exam strategy bhi important hoti hai."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Doubt-solving ek part hai, complete preparation usse kaafi bigger hai."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="obj-panel" id="obj-lc">
+    <div class="obj-qa-grid">
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Mere paas live class hai, Mahapack ki zaroorat nahi."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Live class aapko guidance de rahi hai. But individual live class ka access limited hota hai. Mahapack mein multiple batches, recorded classes, test series, ebooks aur video courses ka complete access milta hai. Preparation ek batch tak limited nahi rahegi."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Live class guidance deti hai, Mahapack complete access deta hai."</div>
+      </div>
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Ek batch enough hai mere liye."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Ek batch helpful ho sakta hai, but agar koi topic miss ho gaya, revision chahiye, ya alternate faculty se samajhna ho, toh multiple batches ka access useful hota hai. Mahapack mein backup aur flexibility dono milte hain."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Ek batch se preparation start hoti hai, Mahapack se preparation secure hoti hai."</div>
+      </div>
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Main live class attend kar raha hoon, test series alag se kyun chahiye?"</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Class se concept clear hota hai, but test se exam readiness check hoti hai. Agar class ke baad test practice nahi karenge, toh actual exam pressure ka idea nahi milega. Mahapack mein learning ke saath testing aur analysis bhi cover ho jata hai."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Class concept clear karti hai, test exam readiness check karta hai."</div>
+      </div>
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Mujhe sirf isi course ki zaroorat hai."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Exam preparation mein kabhi-kabhi supporting courses, revision batches, practice batches aur recorded content bhi kaam aata hai. Mahapack aapko limited course se upar complete preparation access deta hai."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Limited course se limited support milega, Mahapack se complete support milega."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="obj-panel" id="obj-price">
+    <div class="obj-qa-grid">
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Mahapack costly hai."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Pehli nazar mein amount zyada lag sakta hai, but agar aap alag-alag live classes, test series, ebooks, video courses aur batches buy karoge, toh overall cost zyada ho sakti hai. Mahapack mein ye sab ek subscription mein milta hai, isliye long-term mein value better hai."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Cost ko product ke hisaab se nahi, complete access ke hisaab se compare kijiye."</div>
+      </div>
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Budget nahi hai."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Budget important hota hai. Bas ek cheez samajhiye — aap exam preparation mein already invest kar rahe ho. Agar limited product ki wajah se preparation incomplete reh gayi, toh time aur attempt dono ka loss ho sakta hai. Mahapack aapko complete preparation support deta hai."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Ye extra expense nahi, preparation ko complete karne ka investment hai."</div>
+      </div>
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Offer aayega toh lunga."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Offer ka wait karna understandable hai. Bas concern ye hai ki preparation ka time wapas nahi aata. Offer se saving ho sakti hai, but delay se preparation loss ho sakta hai — classes, tests, revision aur updated batches miss ho sakte hain."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Offer ka wait karte-karte preparation ka important time miss nahi hona chahiye."</div>
+      </div>
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Abhi payment nahi kar paunga."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"No issue. Main bas aapki preparation need ke basis par option explain kar raha hoon. Agar payment concern solve ho jaye, toh Mahapack aapki preparation ke liye useful rahega? Agar yes, toh main available payment/support options check karke guide kar deta hoon."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Pehle need clear karte hain, payment ka solution support se check kar lenge."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="obj-panel" id="obj-decision">
+    <div class="obj-qa-grid">
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Main soch ke bataunga."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Decision soch samajh kar lena chahiye. Bas clarity ke liye ek question — aapko doubt price mein hai, need mein hai, ya course access mein? Agar main ye clear kar doon, toh decision easy ho jayega."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Sochna zaroori hai, but unclear doubt ke saath delay karna preparation loss kar sakta hai."</div>
+      </div>
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Parents se baat karni padegi."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Parents se discuss karna important hai. Aap unko simple way mein explain kar sakte ho ki Mahapack mein live classes, recorded videos, test series, ebooks aur multiple batches ek subscription mein milenge. Agar chahein toh main parents ko bhi complete details explain kar sakta hoon."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Parents ko product nahi, complete preparation value explain karni hai."</div>
+      </div>
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Friend/teacher se puch ke bataunga."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Aap puch sakte ho. Bas jab aap compare karo, toh sirf price compare mat kijiye. Compare kijiye ki kya-kya access mil raha hai — live classes, recorded classes, test series, ebooks, multiple batches aur validity. Is basis par Mahapack ka value clear ho jayega."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Price compare nahi, complete access compare kijiye."</div>
+      </div>
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Mujhe abhi zaroorat nahi hai."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Bas ek cheez check karna chahta hoon — aapki preparation currently complete support ke saath chal rahi hai ya limited product ke basis par? Agar exam target serious hai, toh need tab hoti hai jab preparation gap hota hai, na ki sirf jab product expire hota hai."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Zaroorat product ki nahi, complete preparation support ki hoti hai."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="obj-panel" id="obj-trust">
+    <div class="obj-qa-grid">
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Maine pehle product liya tha, use nahi kar paya."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Ye genuine point hai. Is baar main aapko sirf product nahi suggest kar raha, main aapki preparation routine ke hisaab se suitable plan suggest kar raha hoon. Mahapack ka benefit ye hai ki live attend karo ya recorded dekho, tests do ya ebooks use karo — multiple options rahenge."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Usage tab improve hoti hai jab access flexible aur complete hota hai."</div>
+      </div>
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Pehle course complete nahi hua."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Course complete na hone ka reason time, consistency ya guidance ho sakta hai. Mahapack mein multiple batches aur recorded support milta hai, jisse agar ek batch miss ho jaye toh bhi preparation continue reh sakti hai."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Mahapack preparation ko ek batch par dependent nahi rehne deta."</div>
+      </div>
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Mujhe Adda247 se expected benefit nahi mila."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"Sorry agar expected experience nahi mila. Main genuinely samajhna chahta hoon — issue content mein tha, faculty mein tha, access mein tha, ya usage mein? Agar exact reason pata chalega, toh better suitable plan guide kar paunga."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Pehle concern identify karte hain, phir suitable solution decide karte hain."</div>
+      </div>
+      <div class="oqa-card">
+        <div class="oqa-q">❝ "Main YouTube se padh raha hoon."</div>
+        <div class="oqa-r"><span class="oqa-label">Response</span>"YouTube revision aur extra learning ke liye useful hai. But YouTube mein structured batch, proper test plan, exam-specific study material, progress tracking aur complete guidance missing ho sakti hai. Mahapack mein aapko structured preparation ecosystem milta hai."</div>
+        <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"YouTube content deta hai, Mahapack structured preparation path deta hai."</div>
+      </div>
+    </div>
+  </div>
+
+  <a href="#objection-expiry" class="next-btn">Next: Expiry Objection Handling →</a>
+</section>
+
+<!-- ───────────── S21: EXPIRY OBJECTION HANDLING ───────────── -->
+<section id="objection-expiry">
+  <div class="section-label">Section 21</div>
+  <div class="section-divider" style="background:linear-gradient(90deg,var(--gold),transparent)"></div>
+  <h2>Expiry Objection Handling</h2>
+  <p class="section-desc">Renewal & reactivation objections for expired Mahapack students — with reconnect-first responses.</p>
+
+  <div class="formula-box" style="border-color:rgba(245,197,24,0.3);background:rgba(245,197,24,0.05)">
+    <div class="fb-title" style="color:var(--gold)">📐 Core Expiry Formula: Reconnect → Status → Loss → Goal → Pitch → Close</div>
+    <div class="formula-steps">
+      <div class="fs-pill gold">👋 Reconnect <span>"Aapka Mahapack access pehle active tha…"</span></div>
+      <div class="fs-pill gold">❓ Status <span>"Preparation continue hai ya pause?"</span></div>
+      <div class="fs-pill gold">📉 Show Loss <span>"Expiry ke baad updated classes, tests miss ho sakte hain…"</span></div>
+      <div class="fs-pill gold">🎯 Goal + Pitch <span>"Agar exam target serious hai, renewal important hai…"</span></div>
+    </div>
+  </div>
+
+  <div class="expiry-obj-grid" id="expiry-obj-grid">
+    <div class="exp-card">
+      <div class="oqa-q">❝ "Mera Mahapack expire ho gaya, ab mujhe zaroorat nahi hai."</div>
+      <div class="oqa-r"><span class="oqa-label">Response</span>"Ho sakta hai abhi zaroorat feel na ho. Bas ek cheez samajhna chahta hoon — preparation completely stop ho gayi hai ya still exam target kar rahe ho? Agar preparation continue hai, toh Mahapack expire hone ke baad updated classes, tests, recorded videos, ebooks aur batches ka access miss ho sakta hai."</div>
+      <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Zaroorat Mahapack ki nahi, uninterrupted preparation support ki hai."</div>
+    </div>
+    <div class="exp-card">
+      <div class="oqa-q">❝ "Main abhi active nahi hoon, baad mein restart karunga."</div>
+      <div class="oqa-r"><span class="oqa-label">Response</span>"Kabhi-kabhi preparation pause ho jaati hai. Bas issue ye hota hai ki jitna delay hota hai, utna rhythm break hota hai aur restart karna difficult ho jata hai. Renewal karke updated batches, recorded classes aur tests ke saath gradually restart kar sakte ho."</div>
+      <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Restart tab easy hota hai jab access aur structure dono available ho."</div>
+    </div>
+    <div class="exp-card">
+      <div class="oqa-q">❝ "Maine Mahapack liya tha but properly use nahi kar paya."</div>
+      <div class="oqa-r"><span class="oqa-label">Response</span>"Ye genuine concern hai. Is baar renewal se pehle aapka routine samajhna chahta hoon — aap daily kitna time de paoge? Live prefer karoge ya recorded? Mahapack ka benefit ye hai ki live, recorded, tests, ebooks aur multiple batches milte hain — apne schedule ke according plan bana sakte ho."</div>
+      <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Pehle usage issue tha, is baar proper plan ke saath access use karna hai."</div>
+    </div>
+    <div class="exp-card">
+      <div class="oqa-q">❝ "Mera course complete nahi hua tha, phir renew kyu karun?"</div>
+      <div class="oqa-r"><span class="oqa-label">Response</span>"Agar course complete nahi hua tha, toh renewal aur bhi important ho sakta hai. Expiry ke baad access break ho jata hai, aur incomplete preparation wahi ruk jaati hai. Renewal ke baad recorded classes, updated batches aur tests ke saath pending topics complete kar sakte ho."</div>
+      <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Course incomplete reh gaya, isliye access continue karna important hai."</div>
+    </div>
+    <div class="exp-card">
+      <div class="oqa-q">❝ "Exam abhi door hai, baad mein renew kar lunga."</div>
+      <div class="oqa-r"><span class="oqa-label">Response</span>"Exam door lag sakta hai. But serious preparation last moment par nahi hoti. Agar abhi se classes, revision aur tests continue rakhte ho, toh exam ke time pressure kam hoga. Renewal ka benefit ye hai ki preparation flow break nahi karoge."</div>
+      <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Exam door hai, isliye preparation calmly aur consistently karne ka time hai."</div>
+    </div>
+    <div class="exp-card">
+      <div class="oqa-q">❝ "Exam paas hai, ab renew karke kya fayda?"</div>
+      <div class="oqa-r"><span class="oqa-label">Response</span>"Exam paas hai toh renewal ka value aur zyada hai. Last phase mein updated classes, revision, mock tests, previous questions aur recorded videos ka access kaafi useful hota hai. Is stage par preparation gap chhota bhi ho, toh score impact kar sakta hai."</div>
+      <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Exam paas hai, isliye last-mile support aur revision access important hai."</div>
+    </div>
+    <div class="exp-card">
+      <div class="oqa-q">❝ "Main YouTube se padh raha hoon."</div>
+      <div class="oqa-r"><span class="oqa-label">Response</span>"YouTube revision ke liye helpful hai. But YouTube mein structured batch plan, exam-wise tests, updated study material, progress tracking aur complete guidance missing ho sakti hai. Mahapack renewal se structured preparation path milega — live classes, recorded content, test series aur ebooks ek jagah."</div>
+      <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"YouTube content deta hai, Mahapack structured preparation system deta hai."</div>
+    </div>
+    <div class="exp-card">
+      <div class="oqa-q">❝ "Ab main self-study kar raha hoon."</div>
+      <div class="oqa-r"><span class="oqa-label">Response</span>"Self-study important hai. Bas self-study ko support system chahiye hota hai — test practice, doubt clarity, revision, updated content aur exam strategy. Mahapack renewal se self-study aur strong ho jayegi because complete backup rahega."</div>
+      <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Self-study strong hoti hai jab uske saath proper support system hota hai."</div>
+    </div>
+    <div class="exp-card">
+      <div class="oqa-q">❝ "Maine doosra platform join kar liya hai."</div>
+      <div class="oqa-r"><span class="oqa-label">Response</span>"Okay, no issue. Bas aap mujhe ek thing bataiye — kya waha aapko live classes, recorded classes, test series, ebooks, multiple batches aur complete preparation access ek jagah mil raha hai? Platform name se nahi, complete value aur access se compare karna chahiye."</div>
+      <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Platform compare mat kijiye, complete preparation access compare kijiye."</div>
+    </div>
+    <div class="exp-card">
+      <div class="oqa-q">❝ "Pehle Adda247 se expected result nahi mila."</div>
+      <div class="oqa-r"><span class="oqa-label">Response</span>"Sorry agar expected experience nahi mila. Main genuinely samajhna chahta hoon — issue classes mein tha, content mein tha, access mein tha, ya faculty mein? Agar exact concern clear ho jaye, toh better plan suggest kar paunga."</div>
+      <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Pehle concern identify karte hain, phir solution decide karte hain."</div>
+    </div>
+    <div class="exp-card">
+      <div class="oqa-q">❝ "Mahapack costly hai, renewal nahi kar paunga."</div>
+      <div class="oqa-r"><span class="oqa-label">Response</span>"Budget important hota hai. Bas ek comparison kijiye — agar live classes, test series, ebooks, video courses aur revision support separately loge, toh cost aur zyada ho sakti hai. Mahapack renewal se complete preparation access ek subscription mein milta hai."</div>
+      <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Renewal ko cost nahi, complete access value ke basis par dekhiye."</div>
+    </div>
+    <div class="exp-card">
+      <div class="oqa-q">❝ "Offer aayega toh renew karunga."</div>
+      <div class="oqa-r"><span class="oqa-label">Response</span>"Offer ka wait understandable hai. Bas concern ye hai ki preparation ka time wait nahi karta. Offer se thoda amount save ho sakta hai, but delay se classes, tests, revision aur updated content miss ho sakta hai."</div>
+      <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Offer ka wait karte-karte preparation ka time lose nahi hona chahiye."</div>
+    </div>
+    <div class="exp-card">
+      <div class="oqa-q">❝ "Abhi payment issue hai."</div>
+      <div class="oqa-r"><span class="oqa-label">Response</span>"Payment concern genuine hota hai. Pehle ek thing clear karte hain — agar payment issue solve ho jaye, toh kya preparation continue karne ke liye Mahapack renewal lena chahenge? Agar yes, toh main available payment/support options check karke guide kar deta hoon."</div>
+      <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Pehle need confirm karte hain, payment ka solution support se check kar lenge."</div>
+    </div>
+    <div class="exp-card">
+      <div class="oqa-q">❝ "Soch ke bataunga."</div>
+      <div class="oqa-r"><span class="oqa-label">Response</span>"Decision soch samajh kar hi lena chahiye. Bas clarity ke liye ek question — aapko doubt renewal value mein hai, price mein hai, usage mein hai, ya exam need mein? Agar main ye clear kar doon, toh aapka decision easy ho jayega."</div>
+      <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Sochna zaroori hai, but unclear doubt ke saath delay karna preparation break kar sakta hai."</div>
+    </div>
+    <div class="exp-card">
+      <div class="oqa-q">❝ "Mujhe abhi sirf test dena hai."</div>
+      <div class="oqa-r"><span class="oqa-label">Response</span>"Test dena important hai. But test ke baad agar weak topic dikhe, toh usko improve karne ke liye class, recorded video, ebook aur revision support bhi chahiye. Mahapack renewal se test ke saath improvement resources bhi milte rahenge."</div>
+      <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Test weakness batata hai, Mahapack weakness improve karne ka support deta hai."</div>
+    </div>
+    <div class="exp-card">
+      <div class="oqa-q">❝ "Validity expire ho gayi, ab old content ka kya use?"</div>
+      <div class="oqa-r"><span class="oqa-label">Response</span>"Renewal ka benefit old content tak limited nahi hota. Aapko updated batches, latest classes, test series, recorded videos aur study material ka access milta hai. Renewal ka purpose old access continue karna nahi, updated preparation access restart karna hai."</div>
+      <div class="oqa-rf"><span class="rf-tag">↺ Reframe</span>"Renewal ka matlab old content nahi, updated preparation access hai."</div>
+    </div></div>
+
+  <a href="#mindset" class="next-btn">Back to Mindset & Activity →</a>
+</section>
+
+<div style="
+  text-align:center;
+  padding:24px 20px 32px;
+  border-top:1px solid rgba(255,255,255,0.06);
+  margin-top:0;
+  background:rgba(10,10,15,0.95);
+">
+  <span style="
+    font-size:12px;
+    color:rgba(160,160,184,0.7);
+    font-weight:500;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+  ">Designed &amp; Created by &nbsp;</span>
+  <span style="
+    font-size:13px;
+    font-weight:700;
+    color:#e8192c;
+    letter-spacing:1px;
+    text-shadow: 0 0 12px rgba(232,25,44,0.5);
+  ">Rahul Jha</span>
+  <span style="
+    font-size:12px;
+    color:rgba(160,160,184,0.5);
+    margin-left:8px;
+    letter-spacing:1px;
+  ">| Head of Training, Adda247</span>
+</div>
+
+</body>
+</html>
