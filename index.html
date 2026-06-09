@@ -95,11 +95,10 @@
   section {
     min-height: 100vh; padding: 120px 40px 80px;
     max-width: 1200px; margin: 0 auto;
-    opacity: 0; transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    opacity: 1; transform: none;
   }
 
-  section.visible { opacity: 1; transform: translateY(0); }
+  section.visible { opacity: 1; transform: none; }
 
   .section-label {
     font-size: 11px; font-weight: 600; letter-spacing: 3px;
@@ -263,10 +262,10 @@
     border-radius: 14px; padding: 24px 20px;
     transition: all 0.3s;
     position: relative; overflow: hidden;
-    opacity: 0; transform: translateY(20px);
+    opacity: 1; transform: none;
   }
 
-  .obj-card.animated { opacity: 1; transform: translateY(0); }
+  .obj-card.animated { opacity: 1; transform: none; }
 
   .obj-card::before {
     content: '';
@@ -296,12 +295,12 @@
     background: var(--card2); border: 1px solid var(--border);
     border-radius: 12px; padding: 18px 22px;
     display: flex; align-items: center; gap: 12px;
-    opacity: 0; transform: translateX(-20px);
+    opacity: 1; transform: none;
     transition: all 0.4s ease;
     min-width: 190px;
   }
 
-  .purchase-card.animated { opacity: 1; transform: translateX(0); }
+  .purchase-card.animated { opacity: 1; transform: none; }
   .purchase-card:hover { border-color: var(--border-red); }
 
   .purchase-card .icon { font-size: 26px; }
@@ -511,11 +510,11 @@
   .flow-step {
     display: flex; align-items: flex-start; gap: 20px;
     padding: 16px 20px 16px 0; margin-left: 0;
-    opacity: 0; transform: translateX(-15px);
-    transition: all 0.4s ease;
+    opacity: 1; transform: none;
+    transition: all 0.3s ease;
   }
 
-  .flow-step.animated { opacity: 1; transform: translateX(0); }
+  .flow-step.animated { opacity: 1; transform: none; }
 
   .flow-num {
     width: 44px; height: 44px; border-radius: 50%;
@@ -1203,6 +1202,23 @@
   .campaign-hook:hover {
     box-shadow: 0 0 24px rgba(245,197,24,0.2), 0 0 60px rgba(245,197,24,0.06);
     border-color: rgba(245,197,24,0.6);
+  }
+
+
+  /* ensure tab panels render inside visible sections */
+  section.visible .ng-panel.active,
+  section.visible .obj-panel.active {
+    display: block !important;
+    opacity: 1 !important;
+  }
+  /* also fix any case where section hasn't gone visible yet */
+  #need-generation .ng-panel.active,
+  #objection-upgrade .obj-panel.active,
+  #objection-expiry .expiry-obj-grid {
+    display: block !important;
+  }
+  #objection-expiry .expiry-obj-grid {
+    display: grid !important;
   }
 
 </style>
@@ -2043,34 +2059,11 @@
     });
   });
 
-  // ── SCROLL ANIMATION ──
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.08 });
+  // ── SCROLL ANIMATION — sections always visible ──
+  document.querySelectorAll('section').forEach(s => s.classList.add('visible'));
 
-  document.querySelectorAll('section').forEach(s => observer.observe(s));
-
-  // ── STAGGERED CARDS ──
-  const cardObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const cards = entry.target.querySelectorAll('.obj-card, .flow-step');
-        cards.forEach((c, i) => {
-          setTimeout(() => c.classList.add('animated'), i * 100);
-        });
-        const pCards = entry.target.querySelectorAll('.purchase-card');
-        pCards.forEach((c, i) => {
-          setTimeout(() => c.classList.add('animated'), i * 120);
-        });
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('section').forEach(s => cardObserver.observe(s));
+  // ── ALL CARDS IMMEDIATELY VISIBLE ──
+  document.querySelectorAll('.obj-card, .flow-step, .purchase-card').forEach(c => c.classList.add('animated'));
 
   // ── COMPARISON TOGGLE ──
   function toggleHighlight(mode) {
@@ -2089,17 +2082,21 @@
     }
   }
 
-  function showNG(id) {
-    document.querySelectorAll('.ng-panel').forEach(p => p.classList.remove('active'));
-    document.getElementById('ng-' + id).classList.add('active');
+  function showNG(id, btn) {
+    // Only hide ng-panels inside need-generation section
+    document.querySelectorAll('#need-generation .ng-panel').forEach(p => p.classList.remove('active'));
+    var panel = document.getElementById('ng-' + id);
+    if (panel) panel.classList.add('active');
     document.querySelectorAll('#need-generation .ng-tab').forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
+    if (btn) btn.classList.add('active');
   }
-  function showOBJ(id) {
-    document.querySelectorAll('.obj-panel').forEach(p => p.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
+  function showOBJ(id, btn) {
+    // Only hide obj-panels inside objection-upgrade section
+    document.querySelectorAll('#objection-upgrade .obj-panel').forEach(p => p.classList.remove('active'));
+    var panel = document.getElementById(id);
+    if (panel) panel.classList.add('active');
     document.querySelectorAll('#objection-upgrade .ng-tab').forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
+    if (btn) btn.classList.add('active');
   }
 
 </script>
@@ -2114,11 +2111,11 @@
 
   <!-- Product Tabs -->
   <div class="ng-tabs">
-    <button class="ng-tab active" onclick="showNG('ts')">📝 Test Series</button>
-    <button class="ng-tab" onclick="showNG('eb')">📚 Ebook</button>
-    <button class="ng-tab" onclick="showNG('vc')">▶️ Video Course</button>
-    <button class="ng-tab" onclick="showNG('lc')">🎬 Live Class</button>
-    <button class="ng-tab" onclick="showNG('uq')">🌐 Universal</button>
+    <button class="ng-tab active" onclick="showNG('ts', this)">📝 Test Series</button>
+    <button class="ng-tab" onclick="showNG('eb', this)">📚 Ebook</button>
+    <button class="ng-tab" onclick="showNG('vc', this)">▶️ Video Course</button>
+    <button class="ng-tab" onclick="showNG('lc', this)">🎬 Live Class</button>
+    <button class="ng-tab" onclick="showNG('uq', this)">🌐 Universal</button>
   </div>
 
   <!-- TEST SERIES -->
@@ -2261,13 +2258,13 @@
 
   <!-- OBJ TABS -->
   <div class="ng-tabs" style="margin-top:28px">
-    <button class="ng-tab active" onclick="showOBJ('obj-ts')">📝 Test Series</button>
-    <button class="ng-tab" onclick="showOBJ('obj-eb')">📚 Ebook</button>
-    <button class="ng-tab" onclick="showOBJ('obj-vc')">▶️ Video Course</button>
-    <button class="ng-tab" onclick="showOBJ('obj-lc')">🎬 Live Class</button>
-    <button class="ng-tab" onclick="showOBJ('obj-price')">💰 Price</button>
-    <button class="ng-tab" onclick="showOBJ('obj-decision')">🤔 Decision</button>
-    <button class="ng-tab" onclick="showOBJ('obj-trust')">⚠️ Trust/Usage</button>
+    <button class="ng-tab active" onclick="showOBJ('obj-ts', this)">📝 Test Series</button>
+    <button class="ng-tab" onclick="showOBJ('obj-eb', this)">📚 Ebook</button>
+    <button class="ng-tab" onclick="showOBJ('obj-vc', this)">▶️ Video Course</button>
+    <button class="ng-tab" onclick="showOBJ('obj-lc', this)">🎬 Live Class</button>
+    <button class="ng-tab" onclick="showOBJ('obj-price', this)">💰 Price</button>
+    <button class="ng-tab" onclick="showOBJ('obj-decision', this)">🤔 Decision</button>
+    <button class="ng-tab" onclick="showOBJ('obj-trust', this)">⚠️ Trust/Usage</button>
   </div>
 
   <div class="obj-panel active" id="obj-ts">
